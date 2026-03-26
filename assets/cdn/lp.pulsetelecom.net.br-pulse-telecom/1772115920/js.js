@@ -1188,22 +1188,51 @@ function PulseIrParaFormulario(){
  }
 }
 function PulseConfigurarFaq(){
- document.querySelectorAll('.gpc-e.e_faq .gac-item').forEach(function(item){
-  var cabecalho = item.querySelector('.gac-item_cabecalho');
-  var conteudo = item.querySelector('.gac-item_conteudo');
-  if (!cabecalho || !conteudo || cabecalho.dataset.pulseFaqBound === 'true'){return;}
-  cabecalho.dataset.pulseFaqBound = 'true';
-  conteudo.style.overflow = 'hidden';
-  if (!item.classList.contains('gac-aberto')){conteudo.style.height = '0px';}
-  cabecalho.addEventListener('click', function(){
-   var aberto = item.classList.contains('gac-aberto');
-   if (aberto){
-    item.classList.remove('gac-aberto');
-    conteudo.style.height = '0px';
+ document.querySelectorAll('.gpc-e.e_faq .gac').forEach(function(faq){
+  var itens = Array.from(faq.querySelectorAll('.gac-item'));
+  if (!itens.length || faq.dataset.pulseFaqBound === 'true'){return;}
+  faq.dataset.pulseFaqBound = 'true';
+  var fecharItem = function(item){
+   var conteudo = item.querySelector('.gac-item_conteudo');
+   if (!conteudo){return;}
+   item.classList.remove('gac-aberto');
+   conteudo.style.height = '0px';
+   conteudo.style.opacity = '0';
+   conteudo.style.transform = 'translateY(-6px)';
+  };
+  var abrirItem = function(item){
+   var conteudo = item.querySelector('.gac-item_conteudo');
+   if (!conteudo){return;}
+   item.classList.add('gac-aberto');
+   conteudo.style.height = conteudo.scrollHeight + 'px';
+   conteudo.style.opacity = '1';
+   conteudo.style.transform = 'translateY(0)';
+  };
+  itens.forEach(function(item, index){
+   var cabecalho = item.querySelector('.gac-item_cabecalho');
+   var conteudo = item.querySelector('.gac-item_conteudo');
+   if (!cabecalho || !conteudo){return;}
+   cabecalho.style.cursor = 'pointer';
+   conteudo.style.overflow = 'hidden';
+   conteudo.style.opacity = '0';
+   conteudo.style.transform = 'translateY(-6px)';
+   conteudo.style.transition = 'height 320ms ease, opacity 220ms ease, transform 220ms ease';
+   if (item.classList.contains('gac-aberto') && index === 0){
+    abrirItem(item);
    }else{
-    item.classList.add('gac-aberto');
-    conteudo.style.height = conteudo.scrollHeight + 'px';
+    fecharItem(item);
    }
+   cabecalho.addEventListener('click', function(){
+    var aberto = item.classList.contains('gac-aberto');
+    itens.forEach(function(outroItem){
+     if (outroItem !== item){fecharItem(outroItem);}
+    });
+    if (aberto){
+     fecharItem(item);
+    }else{
+     abrirItem(item);
+    }
+   });
   });
  });
 }
