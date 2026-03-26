@@ -719,9 +719,9 @@
  
  if (campo.hasClass('required') && campo_valor == ''){
  campo_validado = false;
- if (campo_auxiliar.html() != 'Campo obrigatÃƒÆ’Ã‚Â³rio.' && campo_auxiliar.html() != ''){campo_auxiliar.attr('html_original',campo_auxiliar.html());}
- campo_auxiliar.html('Campo obrigatÃƒÆ’Ã‚Â³rio.');
-}else{if (campo_auxiliar.html() == 'Campo obrigatÃƒÆ’Ã‚Â³rio.'){campo_auxiliar.html('');}}
+ if (campo_auxiliar.html() != 'Campo obrigatÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³rio.' && campo_auxiliar.html() != ''){campo_auxiliar.attr('html_original',campo_auxiliar.html());}
+ campo_auxiliar.html('Campo obrigatÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³rio.');
+}else{if (campo_auxiliar.html() == 'Campo obrigatÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³rio.'){campo_auxiliar.html('');}}
  if ((campo.hasClass('email') || campo.hasClass('email_multiplo') || campo.hasClass('cemail')) && campo_validado && campo_valor != ''){
  campo_valor = campo_valor.replace(/ /g, '');
  campo.val(campo_valor);
@@ -731,14 +731,14 @@
  for (var i = 0;i < emails.length;i++){
  if(!filtro.test(emails[i])){
  campo_validado = false;
- campo_auxiliar.html('Informe um endereÃƒÆ’Ã‚Â§o de e-mail vÃƒÆ’Ã‚Â¡lido.');
+ campo_auxiliar.html('Informe um endereÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â§o de e-mail vÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¡lido.');
  break;
 }
 }
 }else{
  if(!filtro.test(campo_valor)){
  campo_validado = false;
- campo_auxiliar.html('Informe um endereÃƒÆ’Ã‚Â§o de e-mail vÃƒÆ’Ã‚Â¡lido.');
+ campo_auxiliar.html('Informe um endereÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â§o de e-mail vÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¡lido.');
 }
 }
 }
@@ -746,11 +746,11 @@
  var total_caracteres = campo_valor.length, tamanho_maximo = campo.attr('maxlength');
  if(tamanho_maximo < total_caracteres){
  campo_validado = false;
- campo_auxiliar.html("Informe no mÃƒÆ’Ã‚Â¡ximo "+tamanho_maximo+" caracteres.");
+ campo_auxiliar.html("Informe no mÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¡ximo "+tamanho_maximo+" caracteres.");
 }else{campo_validado = true;}
  if (campo_validado){
  campo_auxiliar.html('');
- if(campo_auxiliar.attr('html_original') == "Informe no mÃƒÆ’Ã‚Â¡ximo "+tamanho_maximo+" caracteres."){campo_auxiliar.attr('html_original','');}
+ if(campo_auxiliar.attr('html_original') == "Informe no mÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¡ximo "+tamanho_maximo+" caracteres."){campo_auxiliar.attr('html_original','');}
 }
 }
  if((campo.attr('min') != undefined || campo.attr('max') != undefined) && campo.hasClass('required') && campo_validado ){
@@ -782,25 +782,25 @@
  if(campo_auxiliar.attr('html_original') == "Informe um valor menor ou igual a "+minimo+"." || campo_auxiliar.attr('html_original') == "Informe um valor maior ou igual a "+minimo+"."|| campo_auxiliar.attr('html_original') == "Informe um valor entre "+minimo+" e "+maximo+"."){campo_auxiliar.attr('html_original','');}
 }
 }
- if (campo.hasClass('required_travar_zero') && (campo_valor == 0 || campo_valor == '') && campo_validado){campo_validado = false;campo_auxiliar.html('Campo obrigatÃƒÆ’Ã‚Â³rio.');}
+ if (campo.hasClass('required_travar_zero') && (campo_valor == 0 || campo_valor == '') && campo_validado){campo_validado = false;campo_auxiliar.html('Campo obrigatÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³rio.');}
  if (campo.hasClass('required_telefone_validar') && campo.hasClass('required') && campo_validado){
  campo_validado = ValidarTelefone(campo_valor);
- if(campo_validado == false){campo_auxiliar.html('Informe um nÃƒÆ’Ã‚Âºmero de telefone vÃƒÆ’Ã‚Â¡lido.');}
+ if(campo_validado == false){campo_auxiliar.html('Informe um nÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Âºmero de telefone vÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¡lido.');}
  else{campo_auxiliar.html('');}
 }
  if (campo.hasClass('required_cpf_validar') && campo.hasClass('required') && campo_validado){
  campo_validado = ValidarCpf(campo_valor);
- if(campo_validado == false){campo_auxiliar.html('Informe um CPF vÃƒÆ’Ã‚Â¡lido.');}
+ if(campo_validado == false){campo_auxiliar.html('Informe um CPF vÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¡lido.');}
  else{campo_auxiliar.html('');}
 }
  if (campo.hasClass('required_cnpj_validar') && campo.hasClass('required') && campo_validado){
  campo_validado = ValidarCnpj(campo_valor);
- if(campo_validado == false){campo_auxiliar.html('Informe um CNPJ vÃƒÆ’Ã‚Â¡lido.');}
+ if(campo_validado == false){campo_auxiliar.html('Informe um CNPJ vÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¡lido.');}
  else{campo_auxiliar.html('');}
 }
  
  if (campo_validado){
- if (campo_auxiliar.attr('html_original') == 'Campo obrigatÃƒÆ’Ã‚Â³rio.' || campo_auxiliar.attr('html_original') == 'Link da pÃƒÆ’Ã‚Â¡gina informado nÃƒÆ’Ã‚Â£o ÃƒÆ’Ã‚Â© vÃƒÆ’Ã‚Â¡lido.' || campo_auxiliar.attr('html_original') == 'Informe seu domÃƒÆ’Ã‚Â­nio no formato do exemplo abaixo.' || campo_auxiliar.attr('html_original') == 'Informe um endereÃƒÆ’Ã‚Â§o de e-mail vÃƒÆ’Ã‚Â¡lido.' || campo_auxiliar.attr('html_original') == 'CartÃƒÆ’Ã‚Â£o informado estÃƒÆ’Ã‚Â¡ expirado.' || campo_auxiliar.attr('html_original') == 'Informe um nÃƒÆ’Ã‚Âºmero de telefone vÃƒÆ’Ã‚Â¡lido.' || campo_auxiliar.attr('html_original') == 'Informe um CPF vÃƒÆ’Ã‚Â¡lido.' || campo_auxiliar.attr('html_original') == 'Informe um CNPJ vÃƒÆ’Ã‚Â¡lido.' || campo_auxiliar.attr('html_original') == 'Bandeiras aceitas Visa, MasterCard, Elo e Diners' || campo_auxiliar.attr('html_original') == 'NÃƒÆ’Ã‚Âºmero do cartÃƒÆ’Ã‚Â£o invÃƒÆ’Ã‚Â¡lido' || campo_auxiliar.attr('html_original') == 'Informe um nÃƒÆ’Ã‚Âºmero de cartÃƒÆ’Ã‚Â£o' || campo_auxiliar.attr('html_original') == 'Senha informada nÃƒÆ’Ã‚Â£o confere com a utilizada.' || campo_auxiliar.attr('html_original') == 'Link de acesso em uso, tente outro.' || campo_auxiliar.attr('html_original') == 'JÃƒÆ’Ã‚Â¡ cadastrado' || campo_auxiliar.attr('html_original') == 'Informe seu domÃƒÆ’Ã‚Â­nio no formato do exemplo abaixo.' || campo_auxiliar.attr('html_original') == 'SubdomÃƒÆ’Ã‚Â­nio informado jÃƒÆ’Ã‚Â¡ foi cadastrado.'){campo_auxiliar.attr({'html_original':''});}
+ if (campo_auxiliar.attr('html_original') == 'Campo obrigatÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³rio.' || campo_auxiliar.attr('html_original') == 'Link da pÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¡gina informado nÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â£o ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â© vÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¡lido.' || campo_auxiliar.attr('html_original') == 'Informe seu domÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â­nio no formato do exemplo abaixo.' || campo_auxiliar.attr('html_original') == 'Informe um endereÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â§o de e-mail vÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¡lido.' || campo_auxiliar.attr('html_original') == 'CartÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â£o informado estÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¡ expirado.' || campo_auxiliar.attr('html_original') == 'Informe um nÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Âºmero de telefone vÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¡lido.' || campo_auxiliar.attr('html_original') == 'Informe um CPF vÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¡lido.' || campo_auxiliar.attr('html_original') == 'Informe um CNPJ vÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¡lido.' || campo_auxiliar.attr('html_original') == 'Bandeiras aceitas Visa, MasterCard, Elo e Diners' || campo_auxiliar.attr('html_original') == 'NÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Âºmero do cartÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â£o invÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¡lido' || campo_auxiliar.attr('html_original') == 'Informe um nÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Âºmero de cartÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â£o' || campo_auxiliar.attr('html_original') == 'Senha informada nÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â£o confere com a utilizada.' || campo_auxiliar.attr('html_original') == 'Link de acesso em uso, tente outro.' || campo_auxiliar.attr('html_original') == 'JÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¡ cadastrado' || campo_auxiliar.attr('html_original') == 'Informe seu domÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â­nio no formato do exemplo abaixo.' || campo_auxiliar.attr('html_original') == 'SubdomÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â­nio informado jÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¡ foi cadastrado.'){campo_auxiliar.attr({'html_original':''});}
  if (campo_area.hasClass('admin_campos-error')){campo_area.removeClass('admin_campos-error');}
  if (campo_auxiliar.attr('html_original') != undefined && campo_auxiliar.attr('html_original') != ''){campo_auxiliar.html(campo_auxiliar.attr('html_original'));bindEvents();}
  else{campo_auxiliar.html('');}
@@ -833,15 +833,15 @@
  if($(campo).hasClass('gpc_campos-check') || $(campo).hasClass('gpc_campos-radio') || $(campo).hasClass('gpc_campos-consentimento_lgpd')){
  if (campo.find('em').length && campo_valor == ''){
  campo_validado = false;
- if (campo_auxiliar.attr('data-gtt') != 'Campo obrigatÃƒÆ’Ã‚Â³rio.' && campo_auxiliar.attr('data-gtt') != '' && campo_auxiliar.attr('data-gtt') != undefined){campo_auxiliar.attr({'data-gtt':''});}
- campo_auxiliar.attr({'data-gtt':'Campo obrigatÃƒÆ’Ã‚Â³rio.'});
-}else{if (campo_auxiliar.attr('data-gtt') == 'Campo obrigatÃƒÆ’Ã‚Â³rio.'){campo_auxiliar.attr({'data-gtt':''});}}
+ if (campo_auxiliar.attr('data-gtt') != 'Campo obrigatÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³rio.' && campo_auxiliar.attr('data-gtt') != '' && campo_auxiliar.attr('data-gtt') != undefined){campo_auxiliar.attr({'data-gtt':''});}
+ campo_auxiliar.attr({'data-gtt':'Campo obrigatÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³rio.'});
+}else{if (campo_auxiliar.attr('data-gtt') == 'Campo obrigatÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³rio.'){campo_auxiliar.attr({'data-gtt':''});}}
 }else{
  if (campo.hasClass('obrigatorio') && campo_valor == ''){
  campo_validado = false;
- if (campo_auxiliar.attr('data-gtt') != 'Campo obrigatÃƒÆ’Ã‚Â³rio.' && campo_auxiliar.attr('data-gtt') != '' && campo_auxiliar.attr('data-gtt') != undefined){campo_auxiliar.attr({'data-gtt':''});}
- campo_auxiliar.attr({'data-gtt':'Campo obrigatÃƒÆ’Ã‚Â³rio.'});
-}else{if (campo_auxiliar.attr('data-gtt') == 'Campo obrigatÃƒÆ’Ã‚Â³rio.'){campo_auxiliar.attr({'data-gtt':''});}}
+ if (campo_auxiliar.attr('data-gtt') != 'Campo obrigatÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³rio.' && campo_auxiliar.attr('data-gtt') != '' && campo_auxiliar.attr('data-gtt') != undefined){campo_auxiliar.attr({'data-gtt':''});}
+ campo_auxiliar.attr({'data-gtt':'Campo obrigatÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³rio.'});
+}else{if (campo_auxiliar.attr('data-gtt') == 'Campo obrigatÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³rio.'){campo_auxiliar.attr({'data-gtt':''});}}
  if ((campo.hasClass('email') || campo.hasClass('email_multiplo') || campo.hasClass('cemail')) && campo_validado && campo_valor != ''){
  campo_valor = campo_valor.replace(/ /g, '');
  campo.val(campo_valor);
@@ -851,14 +851,14 @@
  for (var i = 0;i < emails.length;i++){
  if(!filtro.test(emails[i])){
  campo_validado = false;
- campo_auxiliar.attr({'data-gtt':'Informe um endereÃƒÆ’Ã‚Â§o de e-mail vÃƒÆ’Ã‚Â¡lido.'});
+ campo_auxiliar.attr({'data-gtt':'Informe um endereÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â§o de e-mail vÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¡lido.'});
  break;
  }
 }
 }else{
  if(!filtro.test(campo_valor)){
  campo_validado = false;
- campo_auxiliar.attr({'data-gtt':'Informe um endereÃƒÆ’Ã‚Â§o de e-mail vÃƒÆ’Ã‚Â¡lido.'});
+ campo_auxiliar.attr({'data-gtt':'Informe um endereÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â§o de e-mail vÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¡lido.'});
 }
 }
 }
@@ -866,7 +866,7 @@
  var total_caracteres = campo_valor.length, tamanho_maximo = campo.attr('maxlength');
  if(tamanho_maximo < total_caracteres){
  campo_validado = false;
- campo_auxiliar.attr({'data-gtt':"Informe no mÃƒÆ’Ã‚Â¡ximo "+tamanho_maximo+" caracteres."});
+ campo_auxiliar.attr({'data-gtt':"Informe no mÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¡ximo "+tamanho_maximo+" caracteres."});
 }else{campo_validado = true;}
 }
  if((campo.attr('min') != undefined || campo.attr('max') != undefined) && campo.hasClass('required') && campo_validado ){
@@ -896,26 +896,26 @@
 }
  if (campo.hasClass('required_travar_zero') && (campo_valor == 0 || campo_valor == '') && campo_validado){
  campo_validado = false;
- campo_auxiliar.attr({'data-gtt':'Campo obrigatÃƒÆ’Ã‚Â³rio.'});
+ campo_auxiliar.attr({'data-gtt':'Campo obrigatÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³rio.'});
 }
  if (campo.hasClass('telefone') && (campo.hasClass('obrigatorio') || campo_valor != '') && campo_validado){
  campo_validado = ValidarTelefone(campo,campo_valor);
- if(campo_validado == false){campo_auxiliar.attr({'data-gtt':'Informe um nÃƒÆ’Ã‚Âºmero de telefone vÃƒÆ’Ã‚Â¡lido.'});}
+ if(campo_validado == false){campo_auxiliar.attr({'data-gtt':'Informe um nÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Âºmero de telefone vÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¡lido.'});}
  else{campo_auxiliar.attr({'data-gtt':''});}
 }
  if (campo.hasClass('telefone_ddi') && (campo.hasClass('obrigatorio') || campo_valor != '') && campo_validado){
  campo_validado = ValidarTelefone(campo,campo_valor);
- if(campo_validado == false){campo_auxiliar.attr({'data-gtt':'Informe um nÃƒÆ’Ã‚Âºmero de telefone vÃƒÆ’Ã‚Â¡lido.'});}
+ if(campo_validado == false){campo_auxiliar.attr({'data-gtt':'Informe um nÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Âºmero de telefone vÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¡lido.'});}
  else{campo_auxiliar.attr({'data-gtt':''});}
 }
  if (campo.hasClass('required_cpf_validar') && campo.hasClass('required') && campo_validado){
  campo_validado = ValidarCpf(campo_valor);
- if(campo_validado == false){campo_auxiliar.attr({'data-gtt':'Informe um CPF vÃƒÆ’Ã‚Â¡lido.'});}
+ if(campo_validado == false){campo_auxiliar.attr({'data-gtt':'Informe um CPF vÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¡lido.'});}
  else{campo_auxiliar.attr({'data-gtt':''});}
 }
  if (campo.hasClass('required_cnpj_validar') && campo.hasClass('required') && campo_validado){
  campo_validado = ValidarCnpj(campo_valor);
- if(campo_validado == false){campo_auxiliar.attr({'data-gtt':'Informe um CNPJ vÃƒÆ’Ã‚Â¡lido.'});}
+ if(campo_validado == false){campo_auxiliar.attr({'data-gtt':'Informe um CNPJ vÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¡lido.'});}
  else{campo_auxiliar.attr({'data-gtt':''});}
 }
  if (campo.hasClass('personalized_error')){campo_validado = false;}
@@ -923,12 +923,12 @@
  
  if (campo_validado){
  if (
- campo_auxiliar.attr('data-gtt') == 'Campo obrigatÃƒÆ’Ã‚Â³rio.' ||
- campo_auxiliar.attr('data-gtt') == 'Informe um endereÃƒÆ’Ã‚Â§o de e-mail vÃƒÆ’Ã‚Â¡lido.' ||
- campo_auxiliar.attr('data-gtt') == 'Informe um nÃƒÆ’Ã‚Âºmero de telefone vÃƒÆ’Ã‚Â¡lido.' ||
- campo_auxiliar.attr('data-gtt') == 'Informe um CPF vÃƒÆ’Ã‚Â¡lido.' ||
- campo_auxiliar.attr('data-gtt') == 'Informe um CNPJ vÃƒÆ’Ã‚Â¡lido.' ||
- campo_auxiliar.attr('data-gtt') == 'JÃƒÆ’Ã‚Â¡ cadastrado'
+ campo_auxiliar.attr('data-gtt') == 'Campo obrigatÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³rio.' ||
+ campo_auxiliar.attr('data-gtt') == 'Informe um endereÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â§o de e-mail vÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¡lido.' ||
+ campo_auxiliar.attr('data-gtt') == 'Informe um nÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Âºmero de telefone vÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¡lido.' ||
+ campo_auxiliar.attr('data-gtt') == 'Informe um CPF vÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¡lido.' ||
+ campo_auxiliar.attr('data-gtt') == 'Informe um CNPJ vÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¡lido.' ||
+ campo_auxiliar.attr('data-gtt') == 'JÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¡ cadastrado'
  ){campo_auxiliar.attr({'data-gtt':''});}
  if (campo_area.hasClass('gpc_campos-error')){campo_area.removeClass('gpc_campos-error');}
  campo_auxiliar.attr({'data-gtt':''});
@@ -1167,10 +1167,10 @@ function PulseTratarSucessoFormulario(elemento, post, total_campos){
 }
 function PulseTratarErroFormulario(elemento){
  if($('.aviso_fundo').length){
- var html_aviso = 'NÃƒÆ’Ã‚Â£o foi possÃƒÆ’Ã‚Â­vel fazer seu cadastro, tente novamente.';
+ var html_aviso = 'NÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â£o foi possÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â­vel fazer seu cadastro, tente novamente.';
  $('.aviso_texto').html(html_aviso);
  }else{
- var html_aviso = '<div class="aviso_fundo"></div><div class="aviso_texto">NÃƒÆ’Ã‚Â£o foi possÃƒÆ’Ã‚Â­vel fazer seu cadastro, tente novamente.</div>';
+ var html_aviso = '<div class="aviso_fundo"></div><div class="aviso_texto">NÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â£o foi possÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â­vel fazer seu cadastro, tente novamente.</div>';
  $('body').addClass('body_bloquear').append(html_aviso);
  $('.aviso_fundo, .aviso_texto').addClass('mostrar_aviso');
  }
@@ -1246,10 +1246,26 @@ function PulseConfigurarInteracoes(){
  PulseConfigurarBotoesAssinar();
 }
 
+function PulseValidarLeadFormulario(elemento){
+ var nome = ((elemento.find('input[type="text"]').first().val()) || '').trim();
+ var email = ((elemento.find('input[type="email"]').first().val()) || '').trim();
+ var telefone = '';
+ elemento.find('.gpc_campo').each(function(){
+  if (!telefone && (($(this).attr('type') == 'text') || $(this).hasClass('telefone') || $(this).hasClass('telefone_ddi'))){
+   var valor = ($(this).val() || '').trim();
+   if (valor !== '' && valor !== nome){telefone = valor;}
+  }
+ });
+ var cidade = ((elemento.find('select').first().val()) || '').trim();
+ if (!nome || !email || !telefone || !cidade){return false;}
+ if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){return false;}
+ return true;
+}
+
 function EnviarFormulario(elemento){
 GLoading.carregar({'ativar':true});
 
-var formulario_validado = ValidacaoFormularios(elemento);
+var formulario_validado = PulseValidarLeadFormulario(elemento);
 
 if (formulario_validado){
 
