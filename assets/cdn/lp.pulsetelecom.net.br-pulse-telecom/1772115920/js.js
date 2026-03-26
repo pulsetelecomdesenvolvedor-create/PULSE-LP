@@ -1058,25 +1058,37 @@ async function PulseEnviarLeadParaPlanilha(post){
  if (!pulseLeadWebhookUrl){return false;}
  var lead = PulseExtrairLeadFormulario(post);
  if (!lead['nomeCompleto'] || !lead['email'] || !lead['telefone'] || !lead['cidade']){return false;}
- var payload = new URLSearchParams();
- payload.append('nomeCompleto', lead['nomeCompleto']);
- payload.append('email', lead['email']);
- payload.append('telefone', lead['telefone']);
- payload.append('cidade', lead['cidade']);
- payload.append('origem', 'LP Pulse');
  try{
- if (navigator.sendBeacon){
- var enviado = navigator.sendBeacon(pulseLeadWebhookUrl, payload);
- if (enviado){return true;}
+ var frameId = 'pulse_leads_iframe';
+ var frame = document.getElementById(frameId);
+ if (!frame){
+ frame = document.createElement('iframe');
+ frame.id = frameId;
+ frame.name = frameId;
+ frame.style.display = 'none';
+ document.body.appendChild(frame);
  }
- }catch (error){console.error('Erro ao enviar lead via beacon:', error);}
- try{
- await fetch(pulseLeadWebhookUrl, {
- 'method':'POST',
- 'mode':'no-cors',
- 'body':payload,
- 'keepalive':true
+ var form = document.createElement('form');
+ form.method = 'POST';
+ form.action = pulseLeadWebhookUrl;
+ form.target = frameId;
+ form.style.display = 'none';
+ [
+ ['nomeCompleto', lead['nomeCompleto']],
+ ['email', lead['email']],
+ ['telefone', lead['telefone']],
+ ['cidade', lead['cidade']],
+ ['origem', 'LP Pulse']
+ ].forEach(function(item){
+ var input = document.createElement('input');
+ input.type = 'hidden';
+ input.name = item[0];
+ input.value = item[1];
+ form.appendChild(input);
  });
+ document.body.appendChild(form);
+ form.submit();
+ setTimeout(function(){form.remove();},1000);
  return true;
  }catch (error){
  console.error('Erro ao enviar lead para planilha:', error);
