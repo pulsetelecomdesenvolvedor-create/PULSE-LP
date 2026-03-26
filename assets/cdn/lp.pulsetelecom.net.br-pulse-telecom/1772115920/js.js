@@ -1007,7 +1007,7 @@
  return true;
 }
 window.tempo_tela_obrigado = 500;
-const pulseLeadWebhookUrl = 'https://script.google.com/macros/s/AKfycbx--iHDVECfmyCX1Gf43jtmDJWg0VHDsFPF_11UIAgUha0MWV5zTnKJvnRkHCxgcuMR/exec';
+const pulseLeadApiUrl = '/api/lead';
 function hash(string){
  const utf8 = new TextEncoder().encode(string);
  return crypto.subtle.digest('SHA-256', utf8).then((hashBuffer) =>{
@@ -1055,41 +1055,29 @@ function PulseExtrairLeadFormulario(post){
  return lead;
 }
 async function PulseEnviarLeadParaPlanilha(post){
- if (!pulseLeadWebhookUrl){return false;}
+ if (!pulseLeadApiUrl){return false;}
  var lead = PulseExtrairLeadFormulario(post);
  if (!lead['nomeCompleto'] || !lead['email'] || !lead['telefone'] || !lead['cidade']){return false;}
  try{
- var frameId = 'pulse_leads_iframe';
- var frame = document.getElementById(frameId);
- if (!frame){
- frame = document.createElement('iframe');
- frame.id = frameId;
- frame.name = frameId;
- frame.style.display = 'none';
- document.body.appendChild(frame);
- }
- var form = document.createElement('form');
- form.method = 'POST';
- form.action = pulseLeadWebhookUrl;
- form.target = frameId;
- form.style.display = 'none';
- [
- ['nomeCompleto', lead['nomeCompleto']],
- ['email', lead['email']],
- ['telefone', lead['telefone']],
- ['cidade', lead['cidade']],
- ['origem', 'LP Pulse']
- ].forEach(function(item){
- var input = document.createElement('input');
- input.type = 'hidden';
- input.name = item[0];
- input.value = item[1];
- form.appendChild(input);
+ var response = await fetch(pulseLeadApiUrl, {
+ 'method':'POST',
+ 'headers':{
+ 'Content-Type':'application/json'
+ },
+ 'body':JSON.stringify({
+ 'nomeCompleto':lead['nomeCompleto'],
+ 'email':lead['email'],
+ 'telefone':lead['telefone'],
+ 'cidade':lead['cidade'],
+ 'origem':'LP Pulse'
+ })
  });
- document.body.appendChild(form);
- form.submit();
- setTimeout(function(){form.remove();},1000);
- return true;
+ if (!response.ok){
+ console.error('Erro ao enviar lead para API local:', response.status);
+ return false;
+ }
+ var responseJson = await response.json();
+ return responseJson && responseJson.ok === true;
  }catch (error){
  console.error('Erro ao enviar lead para planilha:', error);
  return false;
