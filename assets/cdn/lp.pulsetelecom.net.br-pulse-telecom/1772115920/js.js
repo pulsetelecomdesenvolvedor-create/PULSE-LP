@@ -1208,24 +1208,22 @@ function PulseConfigurarFaq(){
  });
 }
 function PulseConfigurarFormulario(){
- document.querySelectorAll('.gpc-e.e_formulario .c.e_formulario').forEach(function(container){
-  if (container.dataset.pulseFormBound === 'true'){return;}
-  container.dataset.pulseFormBound = 'true';
-  var form = container.querySelector('form');
-  var botao = container.querySelector('.gpc_botao.e_formulario');
-  if (form){
-   form.addEventListener('submit', function(e){
-    e.preventDefault();
-    EnviarFormulario($(container));
-   });
-  }
-  if (botao){
-   botao.addEventListener('click', function(e){
-    e.preventDefault();
-    EnviarFormulario($(container));
-   });
-  }
+ if (document.body.dataset.pulseFormBound === 'true'){return;}
+ document.body.dataset.pulseFormBound = 'true';
+ document.body.addEventListener('click', function(e){
+  var botao = e.target.closest('.gpc-e.e_formulario .gpc_botao.e_formulario');
+  if (!botao){return;}
+  e.preventDefault();
+  var container = botao.closest('.gpc-e.e_formulario');
+  var form = (container ? container.querySelector('form.c.e_formulario') : null);
+  if (form){EnviarFormulario($(form));}
  });
+ document.body.addEventListener('submit', function(e){
+  var form = e.target.closest('.gpc-e.e_formulario form.c.e_formulario');
+  if (!form){return;}
+  e.preventDefault();
+  EnviarFormulario($(form));
+ }, true);
 }
 function PulseConfigurarBotoesAssinar(){
  document.querySelectorAll('.gpc-e.e_botao a').forEach(function(link){
@@ -1339,6 +1337,7 @@ PulseTratarErroFormulario(elemento);
 return true;
 }else{
 GLoading.carregar({'ativar':false});
+PulseTratarErroFormulario(elemento);
 window.scroll({top:0, behavior:'smooth'});
 return false;
 }
