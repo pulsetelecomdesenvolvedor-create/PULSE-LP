@@ -1272,10 +1272,237 @@ function PulseConfigurarBotoesAssinar(){
   }
  });
 }
+function PulseLimparTexto(texto){
+ return (texto || '').replace(/\s+/g, ' ').trim();
+}
+function PulsePontuacaoPlano(texto){
+ var limpo = PulseLimparTexto(texto);
+ var encontrado = limpo.match(/(\d+)\s*(Mega|Giga)/i);
+ if (!encontrado){return Number.MAX_SAFE_INTEGER;}
+ var numero = parseInt(encontrado[1], 10);
+ return (encontrado[2].toLowerCase() === 'giga') ? numero * 1000 : numero;
+}
+function PulseInjetarEstiloCarrosselPlanos(){
+ if (document.getElementById('pulse-planos-carousel-style')){return;}
+ var estilo = document.createElement('style');
+ estilo.id = 'pulse-planos-carousel-style';
+ estilo.textContent = '.pulse-planos-shell{position:absolute;left:0;right:0;z-index:950;display:grid;grid-template-columns:52px minmax(0,1fr) 52px;gap:14px;align-items:center}.pulse-planos-nav{width:52px;height:52px;border:0;border-radius:999px;background:#173fa3;color:#fff;font-size:24px;line-height:1;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 12px 24px rgba(18,52,133,.18);transition:transform .2s ease,opacity .2s ease,background-color .2s ease}.pulse-planos-nav:hover{transform:translateY(-2px);background:#0f327f}.pulse-planos-nav:disabled{opacity:.35;cursor:default;transform:none}.pulse-planos-viewport{overflow:hidden;padding:18px 4px}.pulse-planos-track{display:flex;gap:24px;overflow-x:auto;scroll-behavior:smooth;scroll-snap-type:x mandatory;padding:8px 2px 16px;-ms-overflow-style:none;scrollbar-width:none}.pulse-planos-track::-webkit-scrollbar{display:none}.pulse-plano-card{scroll-snap-align:start;flex:0 0 286px;background:#fff;border:4px solid #143da4;border-radius:38px;padding:24px 22px 24px;position:relative;box-shadow:0 18px 34px rgba(12,35,89,.14);min-height:470px;display:flex;flex-direction:column}.pulse-plano-ribbon{position:absolute;top:-18px;left:50%;transform:translateX(-50%);background:#173fa3;color:#fff;font-size:13px;font-weight:700;line-height:1.15;padding:10px 16px;border-radius:16px;min-width:220px;text-align:center;box-shadow:0 8px 16px rgba(18,52,133,.22)}.pulse-plano-label{margin-top:24px;font-size:16px;color:#2b2b2b;line-height:1.3}.pulse-plano-speed{margin-top:16px;font-size:52px;font-weight:800;line-height:1;color:#2f2f2f;display:flex;align-items:flex-end;gap:10px;flex-wrap:wrap}.pulse-plano-speed span:last-child{color:#143da4}.pulse-plano-divider{height:1px;background:#cfcfcf;margin:18px 0 16px}.pulse-plano-features{display:flex;flex-direction:column;gap:10px;font-size:17px;line-height:1.35;color:#242424}.pulse-plano-features li{position:relative;padding-left:18px}.pulse-plano-features li::before{content:\"\";position:absolute;left:0;top:.52em;width:8px;height:8px;border-radius:999px;background:#00ff00;transform:translateY(-50%)}.pulse-plano-price{margin-top:auto;padding-top:22px;font-size:23px;font-weight:800;line-height:1.2;color:#1f1f1f}.pulse-plano-price small{font-size:.74em;font-weight:500}.pulse-plano-cta{margin-top:18px;height:52px;border:0;border-radius:16px;background:#00ff00;color:#143da4;font-size:24px;font-weight:700;cursor:pointer;transition:transform .2s ease,filter .2s ease}.pulse-plano-cta:hover{transform:translateY(-2px);filter:brightness(.96)}.pulse-planos-note{margin-top:10px;text-align:center;font-size:13px;line-height:1.45;color:#4d4d4d;padding:0 24px}@media all and (max-width:1120px){.pulse-plano-card{flex-basis:270px;min-height:454px}.pulse-planos-shell{grid-template-columns:46px minmax(0,1fr) 46px}}@media all and (max-width:800px){.pulse-planos-shell{display:none!important}}';
+ document.head.appendChild(estilo);
+}
+function PulseAtualizarNavegacaoPlanos(shell){
+ if (!shell){return;}
+ var viewport = shell.querySelector('.pulse-planos-track');
+ var anterior = shell.querySelector('[data-pulse-planos=\"prev\"]');
+ var proximo = shell.querySelector('[data-pulse-planos=\"next\"]');
+ if (!viewport || !anterior || !proximo){return;}
+ var temOverflow = viewport.scrollWidth > (viewport.clientWidth + 8);
+ anterior.style.visibility = temOverflow ? 'visible' : 'hidden';
+ proximo.style.visibility = temOverflow ? 'visible' : 'hidden';
+ anterior.disabled = !temOverflow || viewport.scrollLeft <= 8;
+ proximo.disabled = !temOverflow || (viewport.scrollLeft + viewport.clientWidth) >= (viewport.scrollWidth - 8);
+}
+function PulseCriarCardPlano(dadosPlano){
+ var card = document.createElement('article');
+ card.className = 'pulse-plano-card';
+ var velocidade = PulseLimparTexto(dadosPlano.speed).match(/^(\d+)\s*(Mega|Giga)$/i);
+ var numero = velocidade ? velocidade[1] : PulseLimparTexto(dadosPlano.speed);
+ var unidade = velocidade ? velocidade[2] : '';
+ var velocidadeHtml = unidade ? '<span>'+numero+'</span><span>'+unidade+'</span>' : '<span>'+PulseLimparTexto(dadosPlano.speed)+'</span>';
+ var listaFeatures = dadosPlano.features.map(function(feature){
+  return '<li>'+feature+'</li>';
+ }).join('');
+ card.innerHTML = (dadosPlano.promo ? '<div class="pulse-plano-ribbon">'+dadosPlano.promo+'</div>' : '')+
+ '<div class="pulse-plano-label">'+(dadosPlano.label || 'Internet Fibra')+'</div>'+
+ '<div class="pulse-plano-speed">'+velocidadeHtml+'</div>'+
+ '<div class="pulse-plano-divider"></div>'+
+ '<ul class="pulse-plano-features">'+listaFeatures+'</ul>'+
+ '<div class="pulse-plano-divider"></div>'+
+ '<div class="pulse-plano-price">'+(dadosPlano.price || '')+'</div>'+
+ '<button type="button" class="pulse-plano-cta">Assinar</button>';
+ card.querySelector('.pulse-plano-cta').addEventListener('click', function(){
+  PulseIrParaFormulario();
+ });
+ return card;
+}
+function PulseConfigurarCarrosselPlanos(){
+ PulseInjetarEstiloCarrosselPlanos();
+ var textosDesktop = Array.from(document.querySelectorAll('.gpc-e.esconder_mobile.dd .c.e_texto, .gpc-e.esconder_mobile.dd .c.e_titulo'));
+ var titulo = textosDesktop.find(function(el){
+  return /Escolha o melhor plano/i.test(PulseLimparTexto(el.textContent));
+ });
+ if (!titulo){return;}
+ var descricao = textosDesktop.find(function(el){
+  return /Planos perfeitos para você/i.test(PulseLimparTexto(el.textContent));
+ });
+ var nota = textosDesktop.find(function(el){
+  return /^\*Valores promocionais/i.test(PulseLimparTexto(el.textContent));
+ });
+ var container = titulo.closest('.centralizar');
+ var bloco = titulo.closest('.gpc-b');
+ if (!container || !bloco){return;}
+ var elementosDesktop = Array.from(container.children).filter(function(el){
+  return el.classList && el.classList.contains('gpc-e') && el.classList.contains('esconder_mobile') && el.classList.contains('dd');
+ });
+ var shellAtual = container.querySelector('.pulse-planos-shell');
+ if (shellAtual){
+  shellAtual.remove();
+ }
+ elementosDesktop.forEach(function(el){
+  if (el.dataset.pulsePlanHidden === 'true'){
+   el.style.opacity = '';
+   el.style.visibility = '';
+   el.style.pointerEvents = '';
+   delete el.dataset.pulsePlanHidden;
+  }
+ });
+ container.dataset.pulsePlanCarouselBuilt = 'false';
+ container.style.height = '';
+ bloco.style.height = '';
+ bloco.style.minHeight = '';
+ if (window.innerWidth <= 800){
+  return;
+ }
+ var tituloRect = titulo.parentElement.getBoundingClientRect();
+ var descricaoRect = (descricao ? descricao.parentElement : titulo.parentElement).getBoundingClientRect();
+ var corteTopo = Math.max(tituloRect.bottom, descricaoRect.bottom) + 12;
+ var textoCandidatos = textosDesktop.map(function(el){
+  var raiz = el.parentElement;
+  return {
+   root: raiz,
+   text: PulseLimparTexto(el.textContent),
+   rect: raiz.getBoundingClientRect()
+  };
+ }).filter(function(item){
+  return item.text && item.rect.width > 0 && item.rect.height > 0 && item.rect.bottom >= (corteTopo - 24);
+ });
+ var velocidades = textoCandidatos.filter(function(item){
+  return /(?:\d+\s*Mega|1\s*Giga)/i.test(item.text);
+ }).sort(function(a, b){
+  return PulsePontuacaoPlano(a.text) - PulsePontuacaoPlano(b.text);
+ });
+ if (velocidades.length < 5){return;}
+ var textoNota = nota ? PulseLimparTexto(nota.textContent) : '';
+ var grupos = velocidades.map(function(item){
+  var centroX = item.rect.left + (item.rect.width / 2);
+  var centroY = item.rect.top + (item.rect.height / 2);
+  return {
+   speed: PulseLimparTexto(item.text),
+   centerX: centroX,
+   centerY: centroY,
+   texts: []
+  };
+ });
+ textoCandidatos.forEach(function(item){
+  if (/Escolha o melhor plano|Planos perfeitos para você/i.test(item.text)){return;}
+  if (textoNota && item.text === textoNota){return;}
+  var centroX = item.rect.left + (item.rect.width / 2);
+  var centroY = item.rect.top + (item.rect.height / 2);
+  var melhorGrupo = null;
+  var melhorDistancia = Number.MAX_SAFE_INTEGER;
+  grupos.forEach(function(grupo){
+   var distancia = Math.abs(centroX - grupo.centerX) + (Math.abs(centroY - grupo.centerY) * 1.35);
+   if (distancia < melhorDistancia){
+    melhorDistancia = distancia;
+    melhorGrupo = grupo;
+   }
+  });
+  if (melhorGrupo){melhorGrupo.texts.push(item);}
+ });
+ var planos = grupos.map(function(grupo){
+  var textosUnicos = [];
+  grupo.texts.sort(function(a, b){
+   return a.rect.top - b.rect.top;
+  }).forEach(function(item){
+   if (textosUnicos.indexOf(item.text) === -1){textosUnicos.push(item.text);}
+  });
+  var promo = textosUnicos.find(function(texto){
+   return /^Nos primeiros 03 meses/i.test(texto);
+  }) || '';
+  var label = textosUnicos.find(function(texto){
+   return /Internet Fibra/i.test(texto);
+  }) || 'Internet Fibra';
+  var price = textosUnicos.find(function(texto){
+   return /R\$\s*\d+[.,]\d+\s*\/mês/i.test(texto);
+  }) || '';
+  var features = textosUnicos.filter(function(texto){
+   return texto !== grupo.speed &&
+    texto !== promo &&
+    texto !== label &&
+    texto !== price &&
+    !/^Nos primeiros 03 meses/i.test(texto) &&
+    !/R\$\s*\d+[.,]\d+\s*\/mês/i.test(texto);
+  });
+  return {
+   speed: grupo.speed,
+   label: label,
+   promo: promo,
+   price: price,
+   features: features
+  };
+ }).sort(function(a, b){
+  return PulsePontuacaoPlano(a.speed) - PulsePontuacaoPlano(b.speed);
+ }).filter(function(plano){
+  return plano.features.length || plano.price || plano.promo;
+ });
+ if (!planos.length){return;}
+ var elementosParaOcultar = elementosDesktop.filter(function(el){
+  var rect = el.getBoundingClientRect();
+  return rect.bottom >= (corteTopo - 24);
+ });
+ elementosParaOcultar.forEach(function(el){
+  el.dataset.pulsePlanHidden = 'true';
+  el.style.opacity = '0';
+  el.style.visibility = 'hidden';
+  el.style.pointerEvents = 'none';
+ });
+ var containerRect = container.getBoundingClientRect();
+ var menorTopoPlano = Math.min.apply(null, grupos.map(function(grupo){
+  return grupo.centerY;
+ })) - 140;
+ var topRelativo = Math.max((Math.max(tituloRect.bottom, descricaoRect.bottom) - containerRect.top) + 28, menorTopoPlano - containerRect.top);
+ var shell = document.createElement('section');
+ shell.className = 'pulse-planos-shell';
+ shell.innerHTML = '<button type="button" class="pulse-planos-nav" data-pulse-planos="prev" aria-label="Planos anteriores">&#8249;</button><div class="pulse-planos-viewport"><div class="pulse-planos-track"></div><div class="pulse-planos-note"></div></div><button type="button" class="pulse-planos-nav" data-pulse-planos="next" aria-label="Próximos planos">&#8250;</button>';
+ shell.style.top = Math.round(topRelativo) + 'px';
+ var trilha = shell.querySelector('.pulse-planos-track');
+ planos.forEach(function(plano){
+  trilha.appendChild(PulseCriarCardPlano(plano));
+ });
+ var notaEl = shell.querySelector('.pulse-planos-note');
+ if (textoNota){
+  notaEl.textContent = textoNota;
+ }else{
+  notaEl.remove();
+ }
+ var navegar = function(direcao){
+  var larguraCard = trilha.querySelector('.pulse-plano-card');
+  var deslocamento = larguraCard ? (larguraCard.getBoundingClientRect().width + 24) * 1.15 : 320;
+  trilha.scrollBy({left: direcao * deslocamento, behavior: 'smooth'});
+ };
+ shell.querySelector('[data-pulse-planos="prev"]').addEventListener('click', function(){
+  navegar(-1);
+ });
+ shell.querySelector('[data-pulse-planos="next"]').addEventListener('click', function(){
+  navegar(1);
+ });
+ trilha.addEventListener('scroll', function(){
+  PulseAtualizarNavegacaoPlanos(shell);
+ }, {passive:true});
+ container.appendChild(shell);
+ requestAnimationFrame(function(){
+  var alturaTotal = Math.ceil(topRelativo + shell.offsetHeight + 30);
+  container.style.height = alturaTotal + 'px';
+  bloco.style.height = alturaTotal + 'px';
+  bloco.style.minHeight = alturaTotal + 'px';
+  container.dataset.pulsePlanCarouselBuilt = 'true';
+  PulseAtualizarNavegacaoPlanos(shell);
+ });
+}
 function PulseConfigurarInteracoes(){
  PulseConfigurarFormulario();
  PulseConfigurarFaq();
  PulseConfigurarBotoesAssinar();
+ PulseConfigurarCarrosselPlanos();
 }
 
 function PulseValidarLeadFormulario(elemento){
@@ -1379,6 +1606,9 @@ return false;
 $(function(){
  PulseConfigurarInteracoes();
  GSlideImage.iniciar();
+ window.addEventListener('load', function(){
+  PulseConfigurarCarrosselPlanos();
+ });
  window.addEventListener('resize', function(e){
  
  e.preventDefault();
@@ -1388,6 +1618,7 @@ $(function(){
  if(timeout_resize_slider){clearTimeout(timeout_resize_slider);timeout_resize_slider = null;}
  timeout_resize_slider = setTimeout(function(){
  if(altura == window.innerHeight && largura == window.innerWidth){
+ PulseConfigurarCarrosselPlanos();
  let instancias = document.querySelectorAll(".gsi");
  if(instancias){
  for (let i = 0;i < instancias.length;i++){
