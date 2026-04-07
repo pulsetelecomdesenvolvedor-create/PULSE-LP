@@ -109,6 +109,18 @@ const AVAILABLE_CITIES = [
   "Maring\u00e1 - RJ",
   "Maromba - RJ"
 ];
+const LEAD_CITY_CANONICAL_MAP = {
+  "Bananal - SP": "Bananal",
+  "Arape\u00ed - SP": "Arape\u00ed",
+  "S\u00e3o Jos\u00e9 do Barreiro - SP": "S\u00e3o Jos\u00e9 do Barreiro",
+  "Cachoeira Paulista - SP": "Cachoeira Paulista",
+  "Vassouras - RJ": "Vassouras",
+  "Valen\u00e7a - RJ": "Valen\u00e7a",
+  "Resende - RJ": "Resende",
+  "Visconde de Mau\u00e1 - RJ": "Visconde de Mau\u00e1 / Maromba / Maring\u00e1",
+  "Maring\u00e1 - RJ": "Visconde de Mau\u00e1 / Maromba / Maring\u00e1",
+  "Maromba - RJ": "Visconde de Mau\u00e1 / Maromba / Maring\u00e1"
+};
 const STANDARD_PLAN_PRICING = {
   "400 Mega": {
     price: "89,90"
@@ -342,6 +354,16 @@ function buildFallbackEmail(phone, city) {
     .replace(/(^-|-$)/g, "") || "cidade";
 
   return `lead-${citySlug}-${digits}@pulsetelecom.local`;
+}
+
+function normalizeLeadCity(city) {
+  const normalizedCity = (city ?? "").toString().trim();
+
+  if (!normalizedCity) {
+    return "";
+  }
+
+  return LEAD_CITY_CANONICAL_MAP[normalizedCity] ?? normalizedCity.replace(/\s*-\s*[A-Z]{2}$/, "");
 }
 
 function isConectAiRuntime() {
@@ -1304,7 +1326,8 @@ async function submitLead(event) {
   const nomeCompleto = (formData.get("nomeCompleto") ?? "").toString().trim();
   const telefone = (formData.get("telefone") ?? "").toString().trim();
   const email = (formData.get("email") ?? "").toString().trim();
-  const cidade = (formData.get("cidade") ?? "").toString().trim();
+  const cidadeSelecionada = (formData.get("cidade") ?? "").toString().trim();
+  const cidade = normalizeLeadCity(cidadeSelecionada);
   const phoneDigits = telefone.replace(/\D/g, "");
 
   if (!nomeCompleto || !cidade || phoneDigits.length < 10) {
@@ -1333,7 +1356,8 @@ async function submitLead(event) {
         origem: leadPayload.origem
       });
     } else {
-      const response = await fetch("/api/lead-teste", {
+      const endpoint = email ? "/api/lead" : "/api/lead-teste";
+      const response = await fetch(endpoint, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
