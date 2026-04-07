@@ -954,19 +954,36 @@ function bindTourTap(element, handler) {
   }
 
   let lastTouchActivationAt = 0;
+  const activateTouch = (event) => {
+    const now = Date.now();
+
+    if (now - lastTouchActivationAt < 500) {
+      event.preventDefault();
+      return;
+    }
+
+    lastTouchActivationAt = now;
+    event.preventDefault();
+    handler(event);
+  };
 
   element.addEventListener("pointerup", (event) => {
     if (event.pointerType !== "touch") {
       return;
     }
 
-    lastTouchActivationAt = Date.now();
-    event.preventDefault();
-    handler(event);
+    activateTouch(event);
+  });
+
+  element.addEventListener("touchend", (event) => {
+    activateTouch(event);
+  }, {
+    passive: false
   });
 
   element.addEventListener("click", (event) => {
     if (Date.now() - lastTouchActivationAt < 700) {
+      event.preventDefault();
       return;
     }
 
