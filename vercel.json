@@ -1,0 +1,14 @@
+{
+  "redirects": [
+    {
+      "source": "/pulse-telecom",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/pulse-telecom/",
+      "destination": "/",
+      "permanent": false
+    }
+  ]
+}
