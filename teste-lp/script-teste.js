@@ -336,6 +336,8 @@ let cityFeedbackTimeout = null;
 let cityGateTimer = null;
 let cityGateHideTimer = null;
 let consultWidgetTimer = null;
+let tourPositionTimer = null;
+let tourPositionFrame = null;
 
 function getWhatsappNumber(city = state.city) {
   const normalizedCity = (city ?? "").replace(/\s*-\s*[A-Z]{2}$/, "");
@@ -946,6 +948,54 @@ function clearTourHighlight() {
   document.querySelectorAll(".tour-highlight").forEach((element) => element.classList.remove("tour-highlight"));
 }
 
+function clearScheduledTourPosition() {
+  if (tourPositionTimer !== null) {
+    window.clearTimeout(tourPositionTimer);
+    tourPositionTimer = null;
+  }
+
+  if (tourPositionFrame !== null) {
+    window.cancelAnimationFrame(tourPositionFrame);
+    tourPositionFrame = null;
+  }
+}
+
+function scheduleTourPopoverPosition(delay = 0) {
+  const runPositioning = () => {
+    tourPositionTimer = null;
+
+    if (tourPositionFrame !== null) {
+      window.cancelAnimationFrame(tourPositionFrame);
+    }
+
+    tourPositionFrame = window.requestAnimationFrame(() => {
+      tourPositionFrame = null;
+
+      if (!tourState.active) {
+        return;
+      }
+
+      const step = TOUR_STEPS[tourState.stepIndex];
+      const target = step ? document.querySelector(step.selector) : null;
+
+      if (!target) {
+        return;
+      }
+
+      positionTourPopover(target);
+    });
+  };
+
+  clearScheduledTourPosition();
+
+  if (delay <= 0) {
+    runPositioning();
+    return;
+  }
+
+  tourPositionTimer = window.setTimeout(runPositioning, delay);
+}
+
 function ensureTourStepReady(stepIndex) {
   if (stepIndex === 0) {
     return;
@@ -969,9 +1019,22 @@ function positionTourPopover(target) {
   }
 
   if (window.innerWidth <= 820) {
+    const viewportPadding = 12;
+    const rect = target.getBoundingClientRect();
+    const popoverRect = popover.getBoundingClientRect();
+    const spaceAbove = rect.top - viewportPadding;
+    const spaceBelow = window.innerHeight - rect.bottom - viewportPadding;
+    const preferredTop =
+      spaceBelow >= popoverRect.height + viewportPadding
+        ? rect.bottom + viewportPadding
+        : rect.top - popoverRect.height - viewportPadding;
+    const maxTop = Math.max(viewportPadding, window.innerHeight - popoverRect.height - viewportPadding);
+    const top = Math.min(Math.max(viewportPadding, preferredTop), maxTop);
+
     popover.style.left = "12px";
     popover.style.right = "12px";
-    popover.style.top = "";
+    popover.style.bottom = "auto";
+    popover.style.top = `${Math.round(top)}px`;
     return;
   }
 
@@ -988,6 +1051,7 @@ function positionTourPopover(target) {
 
   popover.style.left = `${left}px`;
   popover.style.right = "";
+  popover.style.bottom = "auto";
   popover.style.top = `${top}px`;
 }
 
@@ -1018,18 +1082,21 @@ function renderTourStep() {
   clearTourHighlight();
   target.classList.add("tour-highlight");
 
+  positionTourPopover(target);
+
   target.scrollIntoView({
     behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
     block: "center"
   });
 
-  window.setTimeout(() => positionTourPopover(target), window.matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : 260);
+  scheduleTourPopoverPosition(window.matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : 260);
 }
 
 function closeTour(markSeen) {
   const { overlay, popover } = getTourElements();
 
   tourState.active = false;
+  clearScheduledTourPosition();
   clearTourHighlight();
 
   if (overlay) {
@@ -1041,6 +1108,7 @@ function closeTour(markSeen) {
     popover.style.left = "";
     popover.style.right = "";
     popover.style.top = "";
+    popover.style.bottom = "";
   }
 
   void markSeen;
@@ -1649,11 +1717,7 @@ function setupTour() {
       return;
     }
 
-    const step = TOUR_STEPS[tourState.stepIndex];
-    const target = step ? document.querySelector(step.selector) : null;
-    if (target) {
-      positionTourPopover(target);
-    }
+    scheduleTourPopoverPosition();
   });
 
   window.addEventListener(
@@ -1663,20 +1727,32 @@ function setupTour() {
         requestTourStartIfEligible();
       }
 
-      if (!tourState.active || window.innerWidth <= 820) {
+      if (!tourState.active) {
         return;
       }
 
-      const step = TOUR_STEPS[tourState.stepIndex];
-      const target = step ? document.querySelector(step.selector) : null;
-      if (target) {
-        positionTourPopover(target);
-      }
+      scheduleTourPopoverPosition();
     },
     {
       passive: true
     }
   );
+
+  window.visualViewport?.addEventListener("resize", () => {
+    if (!tourState.active) {
+      return;
+    }
+
+    scheduleTourPopoverPosition();
+  });
+
+  window.visualViewport?.addEventListener("scroll", () => {
+    if (!tourState.active) {
+      return;
+    }
+
+    scheduleTourPopoverPosition();
+  });
 
   document.addEventListener("keydown", (event) => {
     if (!tourState.active) {
