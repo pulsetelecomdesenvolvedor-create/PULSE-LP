@@ -948,6 +948,32 @@ function clearTourHighlight() {
   document.querySelectorAll(".tour-highlight").forEach((element) => element.classList.remove("tour-highlight"));
 }
 
+function bindTourTap(element, handler) {
+  if (!element || typeof handler !== "function") {
+    return;
+  }
+
+  let lastTouchActivationAt = 0;
+
+  element.addEventListener("pointerup", (event) => {
+    if (event.pointerType !== "touch") {
+      return;
+    }
+
+    lastTouchActivationAt = Date.now();
+    event.preventDefault();
+    handler(event);
+  });
+
+  element.addEventListener("click", (event) => {
+    if (Date.now() - lastTouchActivationAt < 700) {
+      return;
+    }
+
+    handler(event);
+  });
+}
+
 function clearScheduledTourPosition() {
   if (tourPositionTimer !== null) {
     window.clearTimeout(tourPositionTimer);
@@ -1700,17 +1726,9 @@ function setupPlanBuilder() {
 function setupTour() {
   const { overlay, next, skip } = getTourElements();
 
-  if (overlay) {
-    overlay.addEventListener("click", () => closeTour(true));
-  }
-
-  if (next) {
-    next.addEventListener("click", nextTourStep);
-  }
-
-  if (skip) {
-    skip.addEventListener("click", () => closeTour(true));
-  }
+  bindTourTap(overlay, () => closeTour(true));
+  bindTourTap(next, nextTourStep);
+  bindTourTap(skip, () => closeTour(true));
 
   window.addEventListener("resize", () => {
     if (!tourState.active) {

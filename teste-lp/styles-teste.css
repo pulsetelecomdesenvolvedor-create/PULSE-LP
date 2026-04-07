@@ -346,6 +346,7 @@ body.city-gate-open {
   z-index: 88;
   background: rgba(8, 17, 31, 0.56);
   backdrop-filter: blur(4px);
+  touch-action: manipulation;
 }
 
 .tour-popover {
@@ -399,6 +400,7 @@ body.city-gate-open {
 .tour-actions .button {
   min-height: 46px;
   flex: 1;
+  touch-action: manipulation;
 }
 
 .tour-skip {
