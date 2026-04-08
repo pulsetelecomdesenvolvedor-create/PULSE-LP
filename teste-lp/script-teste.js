@@ -948,10 +948,6 @@ function clearTourHighlight() {
   document.querySelectorAll(".tour-highlight").forEach((element) => element.classList.remove("tour-highlight"));
 }
 
-function isTourEnabled() {
-  return window.innerWidth > 820;
-}
-
 function bindTourTap(element, handler) {
   if (!element || typeof handler !== "function") {
     return;
@@ -1106,11 +1102,6 @@ function renderTourStep() {
   const { overlay, popover, stepLabel, title, description, next } = getTourElements();
   const step = TOUR_STEPS[tourState.stepIndex];
 
-  if (!isTourEnabled()) {
-    closeTour(true);
-    return;
-  }
-
   if (!overlay || !popover || !stepLabel || !title || !description || !next || !step) {
     return;
   }
@@ -1194,10 +1185,6 @@ function requestTourStartIfEligible() {
     return;
   }
 
-  if (!isTourEnabled()) {
-    return;
-  }
-
   if (!state.city || !tourState.delayElapsed || isCityGateOpen()) {
     return;
   }
@@ -1207,10 +1194,6 @@ function requestTourStartIfEligible() {
 
 function startTour() {
   if (tourState.hasStarted) {
-    return;
-  }
-
-  if (!isTourEnabled()) {
     return;
   }
 
@@ -1765,11 +1748,6 @@ function setupTour() {
   bindTourTap(skip, () => closeTour(true));
 
   window.addEventListener("resize", () => {
-    if (!isTourEnabled()) {
-      closeTour(true);
-      return;
-    }
-
     if (!tourState.active) {
       return;
     }
@@ -1796,11 +1774,6 @@ function setupTour() {
   );
 
   window.visualViewport?.addEventListener("resize", () => {
-    if (!isTourEnabled()) {
-      closeTour(true);
-      return;
-    }
-
     if (!tourState.active) {
       return;
     }
