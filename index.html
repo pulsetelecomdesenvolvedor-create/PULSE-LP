@@ -12,7 +12,7 @@
     rel="icon"
     href="./assets/cdn/lp.pulsetelecom.net.br-pulse-telecom/1772115920/imagens/desktop/443484-ab4c7d660ddcb6ad82c0a02255f1ec74.png"
   >
-  <link rel="stylesheet" href="./teste-lp/styles-teste.css?v=20260408d">
+  <link rel="stylesheet" href="./teste-lp/styles-teste.css?v=20260408e">
 </head>
 <body id="topo-lp">
   <header class="site-header">
@@ -772,135 +772,44 @@
     </section>
   </div>
 
-  <div
-    class="tour-overlay"
-    id="tourOverlay"
-    data-tour-action="dismiss"
-    hidden
-    onclick="return window.__pulseTourAction(event, 'dismiss');"
-    onpointerup="return window.__pulseTourAction(event, 'dismiss');"
-    ontouchstart="return window.__pulseTourAction(event, 'dismiss');"
-  ></div>
+  <div class="tour-overlay" id="tourOverlay" hidden></div>
   <aside class="tour-popover" id="tourPopover" hidden aria-live="polite" aria-label="Tutorial da página">
     <p class="tour-step-label" id="tourStepLabel">Passo 1 de 3</p>
     <h3 id="tourTitle">Escolha seu plano</h3>
     <p id="tourDescription">Compare os planos de internet e clique no que fizer mais sentido para você.</p>
     <div class="tour-actions">
-      <button
-        class="button button-secondary tour-skip"
-        id="tourSkip"
-        data-tour-action="dismiss"
-        type="button"
-        onclick="return window.__pulseTourAction(event, 'dismiss');"
-        onpointerup="return window.__pulseTourAction(event, 'dismiss');"
-        ontouchstart="return window.__pulseTourAction(event, 'dismiss');"
-      >Pular</button>
+      <button class="button button-secondary tour-skip" id="tourSkip" type="button">Pular</button>
       <button
         class="button button-primary"
         id="tourNext"
-        data-tour-action="next"
         type="button"
-        onclick="return window.__pulseTourAction(event, 'next');"
-        onpointerup="return window.__pulseTourAction(event, 'next');"
-        ontouchstart="return window.__pulseTourAction(event, 'next');"
       >Próximo</button>
     </div>
   </aside>
-
-  <script>
-    (function () {
-      let lastTourActionAt = 0;
-
-      const stopEvent = function (event) {
-        event?.preventDefault?.();
-        event?.stopPropagation?.();
-        event?.stopImmediatePropagation?.();
-      };
-
-      const dismissTour = function () {
-        const overlay = document.getElementById("tourOverlay");
-        const popover = document.getElementById("tourPopover");
-
-        if (typeof closeTour === "function") {
-          closeTour(true);
-          return;
-        }
-
-        if (overlay) {
-          overlay.hidden = true;
-        }
-
-        if (popover) {
-          popover.hidden = true;
-          popover.style.left = "";
-          popover.style.right = "";
-          popover.style.top = "";
-          popover.style.bottom = "";
-        }
-      };
-
-      const advanceTour = function () {
-        if (typeof nextTourStep === "function") {
-          nextTourStep();
-          return;
-        }
-
-        dismissTour();
-      };
-
-      window.__pulseTourAction = function (event, actionName) {
-        const now = Date.now();
-
-        if (now - lastTourActionAt < 450) {
-          stopEvent(event);
-          return false;
-        }
-
-        lastTourActionAt = now;
-        stopEvent(event);
-
-        if (actionName === "dismiss") {
-          dismissTour();
-          return false;
-        }
-
-        advanceTour();
-        return false;
-      };
-
-      const resolveActionName = function (target) {
-        const action = target?.closest?.("[data-tour-action]");
-
-        if (!action) {
-          return "";
-        }
-
-        if (action.getAttribute("data-tour-action") === "next" && action.textContent.trim().toLowerCase() === "concluir") {
-          return "next";
-        }
-
-        return action.getAttribute("data-tour-action") ?? "";
-      };
-
-      const handleAction = function (event) {
-        const actionName = resolveActionName(event.target);
-
-        if (!actionName) {
-          return;
-        }
-
-        window.__pulseTourAction(event, actionName);
-      };
-
-      document.addEventListener("click", handleAction, true);
-      document.addEventListener("pointerup", handleAction, true);
-      document.addEventListener("touchend", handleAction, {
-        capture: true,
-        passive: false
-      });
-    })();
-  </script>
-  <script src="./teste-lp/script-teste.js?v=20260408d" defer></script>
+  <section class="tour-mobile-sheet" id="tourMobileSheet" hidden aria-live="polite" aria-label="Tutorial da página no mobile">
+    <p class="tour-step-label" id="tourMobileStepLabel">Passo 1 de 3</p>
+    <h3 id="tourMobileTitle">Escolha seu plano</h3>
+    <p id="tourMobileDescription">Compare os planos de internet e clique no que fizer mais sentido para você.</p>
+    <div class="tour-actions">
+      <button
+        class="button button-secondary tour-skip"
+        id="tourMobileSkip"
+        type="button"
+        onclick="return window.__pulseTourInlineAction(event, 'dismiss');"
+        onpointerup="return window.__pulseTourInlineAction(event, 'dismiss');"
+        ontouchend="return window.__pulseTourInlineAction(event, 'dismiss');"
+      >Pular</button>
+      <button
+        class="button button-primary"
+        id="tourMobileNext"
+        type="button"
+        onclick="return window.__pulseTourInlineAction(event, 'next');"
+        onpointerup="return window.__pulseTourInlineAction(event, 'next');"
+        ontouchend="return window.__pulseTourInlineAction(event, 'next');"
+      >Próximo</button>
+    </div>
+  </section>
+  <script src="./teste-lp/script-teste.js?v=20260408e" defer></script>
 </body>
 </html>
 

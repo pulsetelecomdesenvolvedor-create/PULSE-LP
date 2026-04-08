@@ -338,6 +338,7 @@ let cityGateHideTimer = null;
 let consultWidgetTimer = null;
 let tourPositionTimer = null;
 let tourPositionFrame = null;
+let lastInlineTourActionAt = 0;
 
 function getWhatsappNumber(city = state.city) {
   const normalizedCity = (city ?? "").replace(/\s*-\s*[A-Z]{2}$/, "");
@@ -855,6 +856,17 @@ function getTourElements() {
   };
 }
 
+function getMobileTourElements() {
+  return {
+    sheet: document.getElementById("tourMobileSheet"),
+    stepLabel: document.getElementById("tourMobileStepLabel"),
+    title: document.getElementById("tourMobileTitle"),
+    description: document.getElementById("tourMobileDescription"),
+    next: document.getElementById("tourMobileNext"),
+    skip: document.getElementById("tourMobileSkip")
+  };
+}
+
 function getConsultWidgetElements() {
   return {
     widget: document.getElementById("consultWidget"),
@@ -948,6 +960,10 @@ function clearTourHighlight() {
   document.querySelectorAll(".tour-highlight").forEach((element) => element.classList.remove("tour-highlight"));
 }
 
+function isMobileViewport() {
+  return window.innerWidth <= 820;
+}
+
 function bindTourTap(element, handler) {
   if (!element || typeof handler !== "function") {
     return;
@@ -1037,6 +1053,17 @@ function scheduleTourPopoverPosition(delay = 0) {
   }
 
   tourPositionTimer = window.setTimeout(runPositioning, delay);
+}
+
+function scrollTourTarget(target, block = "center") {
+  if (!target) {
+    return;
+  }
+
+  target.scrollIntoView({
+    behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
+    block
+  });
 }
 
 function ensureTourStepReady(stepIndex) {
@@ -1156,6 +1183,145 @@ function closeTour(markSeen) {
 
   void markSeen;
 }
+
+function renderDesktopTourStep(step) {
+  const { overlay, popover, stepLabel, title, description, next } = getTourElements();
+  const { sheet } = getMobileTourElements();
+
+  if (!overlay || !popover || !stepLabel || !title || !description || !next || !step) {
+    return;
+  }
+
+  ensureTourStepReady(tourState.stepIndex);
+
+  const target = document.querySelector(step.selector);
+  if (!target) {
+    closeTour(true);
+    return;
+  }
+
+  tourState.active = true;
+  overlay.hidden = false;
+  popover.hidden = false;
+  if (sheet) {
+    sheet.hidden = true;
+  }
+  document.body.classList.remove("tour-mobile-open");
+  stepLabel.textContent = `Passo ${tourState.stepIndex + 1} de ${TOUR_STEPS.length}`;
+  title.textContent = step.title;
+  description.textContent = step.description;
+  next.textContent = tourState.stepIndex === TOUR_STEPS.length - 1 ? "Concluir" : "PrÃ³ximo";
+
+  clearTourHighlight();
+  target.classList.add("tour-highlight");
+
+  positionTourPopover(target);
+  scrollTourTarget(target);
+  scheduleTourPopoverPosition(window.matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : 260);
+}
+
+function renderMobileTourStep(step) {
+  const { overlay, popover } = getTourElements();
+  const { sheet, stepLabel, title, description, next } = getMobileTourElements();
+
+  if (!overlay || !sheet || !stepLabel || !title || !description || !next || !step) {
+    return;
+  }
+
+  ensureTourStepReady(tourState.stepIndex);
+
+  const target = document.querySelector(step.selector);
+  if (!target) {
+    closeTour(true);
+    return;
+  }
+
+  tourState.active = true;
+  overlay.hidden = false;
+  if (popover) {
+    popover.hidden = true;
+    popover.style.left = "";
+    popover.style.right = "";
+    popover.style.top = "";
+    popover.style.bottom = "";
+  }
+  sheet.hidden = false;
+  document.body.classList.add("tour-mobile-open");
+  stepLabel.textContent = `Passo ${tourState.stepIndex + 1} de ${TOUR_STEPS.length}`;
+  title.textContent = step.title;
+  description.textContent = step.description;
+  next.textContent = tourState.stepIndex === TOUR_STEPS.length - 1 ? "Concluir" : "PrÃ³ximo";
+
+  clearTourHighlight();
+  scrollTourTarget(target, tourState.stepIndex === 0 ? "start" : "center");
+}
+
+function renderTourStep() {
+  const step = TOUR_STEPS[tourState.stepIndex];
+
+  if (!step) {
+    return;
+  }
+
+  if (isMobileViewport()) {
+    renderMobileTourStep(step);
+    return;
+  }
+
+  renderDesktopTourStep(step);
+}
+
+function closeTour(markSeen) {
+  const { overlay, popover } = getTourElements();
+  const { sheet } = getMobileTourElements();
+
+  tourState.active = false;
+  clearScheduledTourPosition();
+  clearTourHighlight();
+  document.body.classList.remove("tour-mobile-open");
+
+  if (overlay) {
+    overlay.hidden = true;
+  }
+
+  if (popover) {
+    popover.hidden = true;
+    popover.style.left = "";
+    popover.style.right = "";
+    popover.style.top = "";
+    popover.style.bottom = "";
+  }
+
+  if (sheet) {
+    sheet.hidden = true;
+  }
+
+  void markSeen;
+}
+
+function handleInlineTourAction(event, actionName) {
+  const now = Date.now();
+
+  event?.preventDefault?.();
+  event?.stopPropagation?.();
+  event?.stopImmediatePropagation?.();
+
+  if (now - lastInlineTourActionAt < 450) {
+    return false;
+  }
+
+  lastInlineTourActionAt = now;
+
+  if (actionName === "dismiss") {
+    closeTour(true);
+    return false;
+  }
+
+  nextTourStep();
+  return false;
+}
+
+window.__pulseTourInlineAction = handleInlineTourAction;
 
 function nextTourStep() {
   if (tourState.stepIndex >= TOUR_STEPS.length - 1) {
@@ -1752,7 +1918,7 @@ function setupTour() {
       return;
     }
 
-    scheduleTourPopoverPosition();
+    renderTourStep();
   });
 
   window.addEventListener(
@@ -1763,6 +1929,10 @@ function setupTour() {
       }
 
       if (!tourState.active) {
+        return;
+      }
+
+      if (isMobileViewport()) {
         return;
       }
 
@@ -1778,11 +1948,15 @@ function setupTour() {
       return;
     }
 
-    scheduleTourPopoverPosition();
+    renderTourStep();
   });
 
   window.visualViewport?.addEventListener("scroll", () => {
     if (!tourState.active) {
+      return;
+    }
+
+    if (isMobileViewport()) {
       return;
     }
 
