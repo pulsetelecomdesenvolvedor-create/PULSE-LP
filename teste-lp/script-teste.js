@@ -1210,7 +1210,7 @@ function renderDesktopTourStep(step) {
   stepLabel.textContent = `Passo ${tourState.stepIndex + 1} de ${TOUR_STEPS.length}`;
   title.textContent = step.title;
   description.textContent = step.description;
-  next.textContent = tourState.stepIndex === TOUR_STEPS.length - 1 ? "Concluir" : "PrÃ³ximo";
+  next.textContent = tourState.stepIndex === TOUR_STEPS.length - 1 ? "Concluir" : "Proximo";
 
   clearTourHighlight();
   target.classList.add("tour-highlight");
@@ -1250,7 +1250,7 @@ function renderMobileTourStep(step) {
   stepLabel.textContent = `Passo ${tourState.stepIndex + 1} de ${TOUR_STEPS.length}`;
   title.textContent = step.title;
   description.textContent = step.description;
-  next.textContent = tourState.stepIndex === TOUR_STEPS.length - 1 ? "Concluir" : "PrÃ³ximo";
+  next.textContent = tourState.stepIndex === TOUR_STEPS.length - 1 ? "Concluir" : "Proximo";
 
   clearTourHighlight();
   scrollTourTarget(target, tourState.stepIndex === 0 ? "start" : "center");
