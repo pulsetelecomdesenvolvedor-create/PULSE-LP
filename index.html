@@ -12,7 +12,7 @@
     rel="icon"
     href="./assets/cdn/lp.pulsetelecom.net.br-pulse-telecom/1772115920/imagens/desktop/443484-ab4c7d660ddcb6ad82c0a02255f1ec74.png"
   >
-  <link rel="stylesheet" href="./teste-lp/styles-teste.css">
+  <link rel="stylesheet" href="./teste-lp/styles-teste.css?v=20260408c">
 </head>
 <body id="topo-lp">
   <header class="site-header">
@@ -783,7 +783,63 @@
     </div>
   </aside>
 
-  <script src="./teste-lp/script-teste.js" defer></script>
+  <script>
+    (function () {
+      const dismissTour = function () {
+        const overlay = document.getElementById("tourOverlay");
+        const popover = document.getElementById("tourPopover");
+
+        if (typeof closeTour === "function") {
+          closeTour(true);
+          return;
+        }
+
+        if (overlay) {
+          overlay.hidden = true;
+        }
+
+        if (popover) {
+          popover.hidden = true;
+          popover.style.left = "";
+          popover.style.right = "";
+          popover.style.top = "";
+          popover.style.bottom = "";
+        }
+      };
+
+      const shouldDismiss = function (target) {
+        const action = target?.closest?.("#tourSkip, #tourNext");
+
+        if (!action) {
+          return false;
+        }
+
+        if (action.id === "tourSkip") {
+          return true;
+        }
+
+        return action.textContent.trim().toLowerCase() === "concluir";
+      };
+
+      const handleDismiss = function (event) {
+        if (!shouldDismiss(event.target)) {
+          return;
+        }
+
+        event.preventDefault();
+        event.stopPropagation();
+        dismissTour();
+      };
+
+      document.addEventListener("click", handleDismiss, true);
+      document.addEventListener("pointerup", handleDismiss, true);
+      document.addEventListener("touchend", handleDismiss, {
+        capture: true,
+        passive: false
+      });
+    })();
+  </script>
+  <script src="./teste-lp/script-teste.js?v=20260408c" defer></script>
 </body>
 </html>
 
