@@ -2911,6 +2911,17 @@ body.motion-ready .reveal-step-5.is-visible {
 }
 
 @media (max-width: 820px) {
+  .tour-overlay {
+    background:
+      linear-gradient(180deg, rgba(8, 17, 31, 0.18) 0%, rgba(8, 17, 31, 0.1) 100%);
+    backdrop-filter: none;
+  }
+
+  .tour-mobile-sheet {
+    background: rgba(255, 255, 255, 0.97);
+    box-shadow: 0 18px 34px rgba(6, 37, 109, 0.16);
+  }
+
   .header-row {
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(180px, 220px);
