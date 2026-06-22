@@ -212,7 +212,7 @@ const PLAN_BUILDER_ADDONS = {
   },
   pulsewatch: {
     label: "TV",
-    display: "TV"
+    display: "TV Pulse Watch"
   }
 };
 const MOBILE_PLAN_OPTIONS = [
@@ -260,40 +260,6 @@ const MOBILE_PLAN_OPTIONS = [
     apps: "Skeelo Premium + WhatsApp + Waze"
   }
 ];
-const PULSEWATCH_PLAN_OPTIONS = [
-  {
-    name: "PulseWatch",
-    price: "49,90"
-  },
-  {
-    name: "PulseWatch Standard",
-    price: "19,90"
-  },
-  {
-    name: "Pulse Watch Sports",
-    price: "74,90"
-  },
-  {
-    name: "Pulse APP",
-    price: "29,90"
-  },
-  {
-    name: "Combate",
-    price: "34,90"
-  },
-  {
-    name: "Premiere",
-    price: "54,90"
-  },
-  {
-    name: "HBO MAX",
-    price: "29,90"
-  },
-  {
-    name: "TeleCine",
-    price: "24,90"
-  }
-];
 const state = {
   city: "",
   selectedPlan: "",
@@ -304,9 +270,7 @@ const state = {
   },
   selectedMobilePlan: "",
   selectedMobilePrice: "",
-  mobilePickerOpen: false,
-  selectedPulsewatchPlans: [],
-  pulsewatchPickerOpen: false
+  mobilePickerOpen: false
 };
 const TOUR_STORAGE_KEY = "pulse_lp_tour_seen_v6";
 const TOUR_STEPS = [
@@ -317,8 +281,8 @@ const TOUR_STEPS = [
   },
   {
     selector: "#etapa-combo",
-    title: "Complete com telefonia",
-    description: "Depois de escolher o plano, adicione Telefone Fixo e/ou Chip Pulse para montar sua solicitação."
+    title: "Complete com comunicação e entretenimento",
+    description: "Depois de escolher a internet, adicione Telefone Fixo, Chip Pulse ou TV Pulse Watch para montar sua solicitação."
   },
   {
     selector: "#planBuilderWhatsappCta",
@@ -565,9 +529,7 @@ function getAddonDisplay(key) {
   }
 
   if (key === "pulsewatch") {
-    return state.selectedPulsewatchPlans.length > 0
-      ? `TV ${state.selectedPulsewatchPlans.join(" + ")}`
-      : PLAN_BUILDER_ADDONS.pulsewatch.display;
+    return PLAN_BUILDER_ADDONS.pulsewatch.display;
   }
 
   return PLAN_BUILDER_ADDONS[key]?.display ?? key;
@@ -585,13 +547,11 @@ function getCurrentMobilePlanOption() {
   return getMobilePlanOptionByName(state.selectedMobilePlan) ?? getDefaultMobilePlanOption();
 }
 
-function getPulsewatchPlanOptionByName(planName) {
-  return PULSEWATCH_PLAN_OPTIONS.find((option) => option.name === planName) ?? null;
-}
-
 function buildPlanBuilderMessage() {
   const cityText = state.city ? ` para ${state.city}` : "";
-  const selectedAddons = getSelectedAddonKeys().map((key) => getAddonDisplay(key));
+  const selectedAddons = getSelectedAddonKeys()
+    .filter((key) => key !== "pulsewatch" || Boolean(state.selectedPlan))
+    .map((key) => getAddonDisplay(key));
 
   if (!state.selectedPlan) {
     if (selectedAddons.length === 0) {
@@ -642,8 +602,12 @@ function updatePlanBuilder() {
   const whatsappCta = document.getElementById("planBuilderWhatsappCta");
   const internetOnlyCta = document.getElementById("planBuilderInternetOnly");
 
+  if (!state.selectedPlan && state.selectedAddons.pulsewatch) {
+    state.selectedAddons.pulsewatch = false;
+  }
+
   if (selectedPlanText) {
-    selectedPlanText.textContent = `Você selecionou o plano ${state.selectedPlan}${state.city ? ` para ${state.city}` : ""}. Complete com telefonia fixa e móvel antes de seguir para o WhatsApp.`;
+    selectedPlanText.textContent = `Você selecionou o plano ${state.selectedPlan}${state.city ? ` para ${state.city}` : ""}. Agora você pode completar com telefonia e TV antes de seguir para o WhatsApp.`;
   }
 
   const selectedAddonKeys = getSelectedAddonKeys();
@@ -651,7 +615,7 @@ function updatePlanBuilder() {
 
   if (!state.selectedPlan) {
     if (selectedPlanText) {
-      selectedPlanText.textContent = "Escolha um plano acima e, se quiser, adicione Telefone Fixo e Chip Pulse antes de seguir para o WhatsApp.";
+      selectedPlanText.textContent = "Escolha um plano de internet acima. Depois, você poderá adicionar Telefone Fixo, Chip Pulse e TV Pulse Watch.";
     }
 
     if (summaryTitle) {
@@ -664,7 +628,7 @@ function updatePlanBuilder() {
     if (summaryCopy) {
       summaryCopy.textContent =
         selectedAddonDisplays.length === 0
-          ? `Você pode escolher um plano acima ou falar com a Pulse agora para receber a melhor opção${state.city ? ` para ${state.city}` : ""}.`
+          ? `Escolha um plano de internet acima para liberar a TV Pulse Watch ou fale com a Pulse para receber a melhor opção${state.city ? ` para ${state.city}` : ""}.`
           : `Sua mensagem para o WhatsApp vai incluir ${formatNaturalList(selectedAddonDisplays)}${state.city ? ` para ${state.city}` : ""}.`;
     }
   } else {
@@ -678,7 +642,7 @@ function updatePlanBuilder() {
     if (summaryCopy) {
       summaryCopy.textContent =
         selectedAddonDisplays.length === 0
-          ? "Se preferir, você pode seguir só com internet ou adicionar Telefone Fixo e Chip Pulse antes do atendimento."
+          ? "Se preferir, você pode seguir só com internet ou adicionar Telefone Fixo, Chip Pulse e TV Pulse Watch antes do atendimento."
           : `Sua mensagem para o WhatsApp vai incluir ${formatNaturalList(selectedAddonDisplays)}${state.city ? ` para ${state.city}` : ""}.`;
     }
   }
@@ -759,38 +723,36 @@ function updatePlanBuilder() {
 
   const pulsewatchFeatured = document.getElementById("pulsewatchFeatured");
   const pulsewatchFeaturedBadge = document.getElementById("pulsewatchFeaturedBadge");
-  const pulsewatchPickerTrigger = document.getElementById("pulsewatchPickerTrigger");
-  const pulsewatchPickerLabel = document.getElementById("pulsewatchPickerLabel");
-  const pulsewatchPickerPanel = document.getElementById("pulsewatchPickerPanel");
+  const pulsewatchCard = document.querySelector('.plan-builder-option[data-addon="pulsewatch"]');
+  const pulsewatchRequirement = document.getElementById("pulsewatchRequirement");
+  const pulsewatchRequirementCta = document.getElementById("pulsewatchRequirementCta");
+  const hasInternetPlan = Boolean(state.selectedPlan);
+
+  if (pulsewatchCard) {
+    pulsewatchCard.classList.toggle("is-locked", !hasInternetPlan);
+    pulsewatchCard.setAttribute("aria-disabled", hasInternetPlan ? "false" : "true");
+  }
+
+  if (pulsewatchRequirement) {
+    pulsewatchRequirement.textContent = hasInternetPlan
+      ? `Disponível como adicional do plano ${state.selectedPlan}.`
+      : "Disponível exclusivamente junto com um plano de internet Pulse.";
+  }
+
+  if (pulsewatchRequirementCta) {
+    pulsewatchRequirementCta.hidden = hasInternetPlan;
+  }
 
   if (pulsewatchFeatured) {
-    const hasBasePlan = state.selectedPulsewatchPlans.includes("PulseWatch");
-    pulsewatchFeatured.classList.toggle("is-selected", hasBasePlan);
-    pulsewatchFeatured.setAttribute("aria-pressed", hasBasePlan ? "true" : "false");
+    const isSelected = state.selectedAddons.pulsewatch;
+    pulsewatchFeatured.disabled = !hasInternetPlan;
+    pulsewatchFeatured.classList.toggle("is-selected", isSelected);
+    pulsewatchFeatured.setAttribute("aria-pressed", isSelected ? "true" : "false");
   }
 
   if (pulsewatchFeaturedBadge) {
-    pulsewatchFeaturedBadge.textContent = state.selectedPulsewatchPlans.includes("PulseWatch") ? "Selecionado" : "Principal";
+    pulsewatchFeaturedBadge.textContent = state.selectedAddons.pulsewatch ? "Selecionado" : "Única opção";
   }
-
-  if (pulsewatchPickerPanel && pulsewatchPickerTrigger) {
-    pulsewatchPickerPanel.hidden = !state.pulsewatchPickerOpen;
-    pulsewatchPickerTrigger.setAttribute("aria-expanded", state.pulsewatchPickerOpen ? "true" : "false");
-  }
-
-  if (pulsewatchPickerLabel) {
-    pulsewatchPickerLabel.textContent =
-      state.selectedPulsewatchPlans.length === 0
-        ? "Mais opções"
-        : `Mais opções (${state.selectedPulsewatchPlans.length})`;
-  }
-
-  document.querySelectorAll(".pulsewatch-option").forEach((option) => {
-    const planName = option.getAttribute("data-pulsewatch-plan") ?? "";
-    const isSelected = state.selectedPulsewatchPlans.includes(planName);
-    option.classList.toggle("is-selected", isSelected);
-    option.setAttribute("aria-pressed", isSelected ? "true" : "false");
-  });
 }
 
 function selectMobilePlan(planName, planPrice) {
@@ -820,26 +782,12 @@ function toggleMobilePlanPicker() {
   updatePlanBuilder();
 }
 
-function togglePulsewatchPicker() {
-  state.pulsewatchPickerOpen = !state.pulsewatchPickerOpen;
-  updatePlanBuilder();
-}
-
-function togglePulsewatchPlan(planName) {
-  const pulsewatchPlan = getPulsewatchPlanOptionByName(planName);
-
-  if (!pulsewatchPlan) {
+function togglePulsewatchPlan() {
+  if (!state.selectedPlan) {
     return;
   }
 
-  if (state.selectedPulsewatchPlans.includes(planName)) {
-    state.selectedPulsewatchPlans = state.selectedPulsewatchPlans.filter((item) => item !== planName);
-  } else {
-    state.selectedPulsewatchPlans = [...state.selectedPulsewatchPlans, planName];
-  }
-
-  state.selectedAddons.pulsewatch = state.selectedPulsewatchPlans.length > 0;
-  state.pulsewatchPickerOpen = true;
+  state.selectedAddons.pulsewatch = !state.selectedAddons.pulsewatch;
   updatePlanBuilder();
   advanceTourTo(2);
 }
@@ -1844,26 +1792,9 @@ function setupPlanBuilder() {
   });
 
   const pulsewatchFeatured = document.getElementById("pulsewatchFeatured");
-  const pulsewatchPickerTrigger = document.getElementById("pulsewatchPickerTrigger");
 
   pulsewatchFeatured?.addEventListener("click", () => {
-    togglePulsewatchPlan("PulseWatch");
-  });
-
-  pulsewatchPickerTrigger?.addEventListener("click", () => {
-    togglePulsewatchPicker();
-  });
-
-  document.querySelectorAll(".pulsewatch-option").forEach((option) => {
-    option.addEventListener("click", () => {
-      const planName = option.getAttribute("data-pulsewatch-plan") ?? "";
-
-      if (!planName) {
-        return;
-      }
-
-      togglePulsewatchPlan(planName);
-    });
+    togglePulsewatchPlan();
   });
 
   document.addEventListener("click", (event) => {
@@ -1874,18 +1805,6 @@ function setupPlanBuilder() {
         updatePlanBuilder();
       }
     }
-
-    if (!state.pulsewatchPickerOpen) {
-      return;
-    }
-
-    const picker = document.querySelector(".pulsewatch-picker");
-    if (picker && picker.contains(event.target)) {
-      return;
-    }
-
-    state.pulsewatchPickerOpen = false;
-    updatePlanBuilder();
   });
 
   const internetOnlyButton = document.getElementById("planBuilderInternetOnly");
@@ -1898,8 +1817,6 @@ function setupPlanBuilder() {
       };
       state.selectedMobilePlan = "";
       state.selectedMobilePrice = "";
-      state.selectedPulsewatchPlans = [];
-      state.pulsewatchPickerOpen = false;
       updatePlanBuilder();
       advanceTourTo(2);
     });
