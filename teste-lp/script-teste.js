@@ -463,7 +463,7 @@ function getSelectedAddonKeys() {
 
 function getAddonDisplay(key) {
   if (key === "mobile") {
-    return state.selectedAddons.mobile ? "Chip Pulse a partir de R$ 29,90" : PLAN_BUILDER_ADDONS.mobile.display;
+    return PLAN_BUILDER_ADDONS.mobile.display;
   }
 
   if (key === "pulsewatch") {
