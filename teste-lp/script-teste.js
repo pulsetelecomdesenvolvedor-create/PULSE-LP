@@ -132,32 +132,88 @@ const LEAD_CITY_CANONICAL_MAP = {
   "Maring\u00e1 - RJ": "Visconde de Mau\u00e1 / Maromba / Maring\u00e1",
   "Maromba - RJ": "Visconde de Mau\u00e1 / Maromba / Maring\u00e1"
 };
-const STANDARD_PLAN_PRICING = {
-  "700 Mega": {
-    price: "89,90"
+const PLAN_BENEFITS_DEFAULT = ["Instalação Grátis", "Suporte especializado", "WIFI 6", "Via Livros"];
+const PLAN_BENEFITS_MESH = ["Instalação Grátis", "Suporte especializado", "WIFI 6", "Pulse Mesh", "Via Livros"];
+const UPDATED_PLAN_SET = [
+  {
+    name: "700 Mega",
+    badge: "Pulse Essencial",
+    speed: "700",
+    unit: "Mega",
+    price: "89,90",
+    benefits: PLAN_BENEFITS_DEFAULT
   },
-  "800 Mega": {
-    price: "99,90"
+  {
+    name: "800 Mega",
+    badge: "Plano destaque",
+    speed: "800",
+    unit: "Mega",
+    price: "99,90",
+    benefits: PLAN_BENEFITS_DEFAULT,
+    featured: true
   },
-  "1 Giga": {
-    price: "129,90"
+  {
+    name: "1 Giga",
+    badge: "Alta velocidade",
+    speed: "1",
+    unit: "Giga",
+    price: "129,90",
+    benefits: PLAN_BENEFITS_DEFAULT
   },
-  "1 Giga + 1 Mesh": {
-    price: "139,90"
+  {
+    name: "1 Giga + 1 Mesh",
+    badge: "Máxima cobertura",
+    speed: "1",
+    unit: "Giga + 1 Mesh",
+    price: "139,90",
+    benefits: PLAN_BENEFITS_MESH,
+    compactUnit: true
   }
-};
-const CITY_PLAN_PRICING = {
-  "Bananal - SP": STANDARD_PLAN_PRICING,
-  "Arape\u00ed - SP": STANDARD_PLAN_PRICING,
-  "S\u00e3o Jos\u00e9 do Barreiro - SP": STANDARD_PLAN_PRICING,
-  "Cachoeira Paulista - SP": STANDARD_PLAN_PRICING,
-  "Vassouras - RJ": STANDARD_PLAN_PRICING,
-  "Valen\u00e7a - RJ": STANDARD_PLAN_PRICING,
-  "Resende - RJ": STANDARD_PLAN_PRICING,
-  "Visconde de Mau\u00e1 - RJ": STANDARD_PLAN_PRICING,
-  "Maring\u00e1 - RJ": STANDARD_PLAN_PRICING,
-  "Maromba - RJ": STANDARD_PLAN_PRICING
-};
+];
+const LEGACY_PLAN_SET = [
+  {
+    name: "400 Mega",
+    badge: "Pulse Essencial",
+    speed: "400",
+    unit: "Mega",
+    price: "89,90",
+    benefits: PLAN_BENEFITS_DEFAULT
+  },
+  {
+    name: "600 Mega",
+    badge: "Plano destaque",
+    speed: "600",
+    unit: "Mega",
+    price: "99,90",
+    benefits: PLAN_BENEFITS_DEFAULT,
+    featured: true
+  },
+  {
+    name: "700 Mega",
+    badge: "Mais desempenho",
+    speed: "700",
+    unit: "Mega",
+    price: "119,90",
+    benefits: PLAN_BENEFITS_DEFAULT
+  },
+  {
+    name: "800 Mega",
+    badge: "Alta performance",
+    speed: "800",
+    unit: "Mega",
+    price: "139,90",
+    benefits: PLAN_BENEFITS_MESH
+  },
+  {
+    name: "1 Giga",
+    badge: "Máxima cobertura",
+    speed: "1",
+    unit: "Giga",
+    price: "189,90",
+    benefits: PLAN_BENEFITS_MESH
+  }
+];
+const LEGACY_PLAN_CITIES = new Set(["Bananal", "Arapeí", "São José do Barreiro"]);
 const DEFAULT_WHATSAPP_NUMBER = "551231165043";
 const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx--iHDVECfmyCX1Gf43jtmDJWg0VHDsFPF_11UIAgUha0MWV5zTnKJvnRkHCxgcuMR/exec";
 const CONECTAI_LEAD_PROXY_URL = "https://lp.pulsetelecom.net.br/api/conectai-webhook";
@@ -408,22 +464,95 @@ function getCityContent(city) {
   return CITY_DATA[city] ?? CITY_DATA[normalizedCity] ?? CITY_DATA.default;
 }
 
-function getPlanPricing(city) {
-  return CITY_PLAN_PRICING[city] ?? STANDARD_PLAN_PRICING;
+function normalizePlanCity(city) {
+  return (city ?? "").toString().trim().replace(/\s*-\s*[A-Z]{2}$/, "");
 }
 
-function applyPlanPricing(city) {
-  const pricing = getPlanPricing(city);
+function getPlanSet(city) {
+  return LEGACY_PLAN_CITIES.has(normalizePlanCity(city)) ? LEGACY_PLAN_SET : UPDATED_PLAN_SET;
+}
 
-  document.querySelectorAll("[data-plan-card]").forEach((card) => {
-    const plan = card.getAttribute("data-plan-card");
-    const priceValue = card.querySelector(".plan-price-value");
-    const planPricing = pricing[plan] ?? STANDARD_PLAN_PRICING[plan];
+function escapeHtml(value) {
+  return value
+    .toString()
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
 
-    if (priceValue && planPricing?.price) {
-      priceValue.textContent = planPricing.price;
-    }
-  });
+function buildPlanCard(plan) {
+  const cardClass = plan.featured ? "plan-card plan-card-featured" : "plan-card";
+  const buttonClass = plan.featured ? "button button-primary js-plan-whatsapp" : "button button-plan js-plan-whatsapp";
+  const unitClass = plan.compactUnit ? ' class="plan-speed-extra"' : "";
+  const benefits = plan.benefits.map((benefit) => `<li>${escapeHtml(benefit)}</li>`).join("");
+
+  return `
+          <article class="${cardClass}" data-plan-card="${escapeHtml(plan.name)}">
+            <div class="plan-card-top">
+              <div class="plan-icons" aria-hidden="true">
+                <span class="plan-icon plan-icon-fiber"></span>
+                <span class="plan-icon plan-icon-install"></span>
+                <span class="plan-icon plan-icon-support"></span>
+              </div>
+              <span class="plan-badge">${escapeHtml(plan.badge)}</span>
+              <p class="plan-speed">
+                <strong>${escapeHtml(plan.speed)}</strong>
+                <span${unitClass}>${escapeHtml(plan.unit)}</span>
+              </p>
+            </div>
+
+            <div class="plan-divider"></div>
+
+            <ul class="plan-benefits">
+              ${benefits}
+            </ul>
+
+            <div class="plan-footer">
+              <p class="plan-price-row">
+                <span class="plan-currency">R$</span>
+                <strong class="plan-price-value">${escapeHtml(plan.price)}</strong>
+                <span class="plan-price-period">/mês</span>
+              </p>
+              <a
+                class="${buttonClass}"
+                data-plan="${escapeHtml(plan.name)}"
+                href="https://wa.me/551231165043"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Quero esse plano
+              </a>
+            </div>
+          </article>`;
+}
+
+function renderPlanCards(city) {
+  const grid = document.querySelector(".plans-grid");
+
+  if (!grid) {
+    return;
+  }
+
+  const planSet = getPlanSet(city);
+  const planNames = planSet.map((plan) => plan.name);
+
+  if (state.selectedPlan && !planNames.includes(state.selectedPlan)) {
+    state.selectedPlan = "";
+    state.selectedAddons.pulsewatch = false;
+  }
+
+  grid.classList.toggle("plans-grid-legacy", planSet === LEGACY_PLAN_SET);
+  grid.innerHTML = planSet.map((plan) => buildPlanCard(plan)).join("");
+
+  if (state.selectedPlan) {
+    [...document.querySelectorAll(".plan-card")]
+      .find((card) => card.getAttribute("data-plan-card") === state.selectedPlan)
+      ?.classList.add("plan-card-selected");
+  }
+
+  window.__pulseRefreshPlanReveal?.();
 }
 
 function buildCoverageMessage(city) {
@@ -1425,7 +1554,7 @@ function applyPhoneMask(input) {
 function applyCity(city) {
   state.city = city;
   updateSelectedCityPill(city);
-  applyPlanPricing(city);
+  renderPlanCards(city);
 
   const coverageLink = buildWhatsappLink(buildCoverageMessage(city), city);
   document.getElementById("headerWhatsappCta").href = coverageLink;
@@ -1571,6 +1700,19 @@ function setupPremiumMotion() {
 
   document.body.classList.add("motion-ready");
 
+  const observeRevealElements = (elements, mode, delay = 0, stagger = 0) => {
+    elements.forEach((element, index) => {
+      if (element.classList.contains("scroll-reveal")) {
+        return;
+      }
+
+      const revealDelay = Math.min(delay + index * stagger, 300);
+      element.classList.add("scroll-reveal", `scroll-reveal-${mode}`);
+      element.style.setProperty("--reveal-delay", `${revealDelay}ms`);
+      observer.observe(element);
+    });
+  };
+
   const observer = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
@@ -1613,6 +1755,10 @@ function setupPremiumMotion() {
     }
   );
 
+  window.__pulseRefreshPlanReveal = () => {
+    observeRevealElements(document.querySelectorAll(".plan-card"), "fade", 0, 60);
+  };
+
   const revealGroups = [
     { selector: ".proof-copy", mode: "left" },
     { selector: ".proof-card", mode: "fade", stagger: 70 },
@@ -1631,12 +1777,7 @@ function setupPremiumMotion() {
   ];
 
   revealGroups.forEach(({ selector, mode, delay = 0, stagger = 0 }) => {
-    document.querySelectorAll(selector).forEach((element, index) => {
-      const revealDelay = Math.min(delay + index * stagger, 300);
-      element.classList.add("scroll-reveal", `scroll-reveal-${mode}`);
-      element.style.setProperty("--reveal-delay", `${revealDelay}ms`);
-      observer.observe(element);
-    });
+    observeRevealElements(document.querySelectorAll(selector), mode, delay, stagger);
   });
 }
 
@@ -1662,20 +1803,25 @@ function setupMobileStickyCta() {
 
 function setupPlanBuilder() {
   const section = document.getElementById("etapa-combo");
+  const plansGrid = document.querySelector(".plans-grid");
 
-  document.querySelectorAll(".js-plan-whatsapp").forEach((link) => {
-    link.addEventListener("click", (event) => {
-      event.preventDefault();
-      selectPlan(link.getAttribute("data-plan") ?? "Plano", link.closest(".plan-card"));
-      advanceTourTo(1);
+  plansGrid?.addEventListener("click", (event) => {
+    const link = event.target.closest(".js-plan-whatsapp");
 
-      if (section) {
-        section.scrollIntoView({
-          behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
-          block: "start"
-        });
-      }
-    });
+    if (!link) {
+      return;
+    }
+
+    event.preventDefault();
+    selectPlan(link.getAttribute("data-plan") ?? "Plano", link.closest(".plan-card"));
+    advanceTourTo(1);
+
+    if (section) {
+      section.scrollIntoView({
+        behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
+        block: "start"
+      });
+    }
   });
 
   document.querySelectorAll('.plan-builder-option[data-addon="fixed"]').forEach((option) => {

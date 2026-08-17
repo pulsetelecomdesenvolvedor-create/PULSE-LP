@@ -1236,6 +1236,10 @@ body.motion-ready .scroll-reveal-right.is-visible {
   gap: 16px;
 }
 
+.plans-grid-legacy {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
 .plan-card {
   display: flex;
   flex-direction: column;
