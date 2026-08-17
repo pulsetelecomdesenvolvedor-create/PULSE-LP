@@ -4,36 +4,47 @@ const CITY_DATA = {
     eyebrow: "Internet fibra da Pulse Telecom na sua cidade",
     title: "Escolha sua cidade e veja a melhor oferta disponível para o seu endereço.",
     subtitle:
-      "Instalação grátis, suporte local e planos de 400 Mega, 600 Mega, 700 Mega, 800 Mega e 1 Giga. Em cidades promocionais, o combo fixo + móvel pode sair por R$ 29,90.",
+      "Instalação grátis, suporte local e planos de 700 Mega, 800 Mega, 1 Giga e 1 Giga com 1 Mesh. O Chip Pulse pode ser adicionado a partir de R$ 29,90.",
     note: "Selecione sua cidade para personalizar a oferta e acelerar o atendimento comercial.",
-    offerLabel: "Oferta dinâmica por cidade",
-    offerPrice: "Selecione sua cidade",
+    offerLabel: "Planos atualizados",
+    offerPrice: "A partir de R$ 89,90",
     offerDescription:
-      "A Pulse ajusta a comunicação de cobertura e condição comercial conforme a cidade escolhida.",
+      "A Pulse confirma cobertura e disponibilidade dos planos conforme a cidade escolhida.",
     plansIntro:
-      "A grade abaixo organiza os planos por perfil de uso. Valores promocionais e disponibilidade podem variar por cidade."
+      "A grade abaixo organiza os planos atualizados por perfil de uso. Disponibilidade pode variar por cidade."
   },
   "Cachoeira Paulista": {
     eyebrow: "Oferta local para Cachoeira Paulista",
-    title: "Fibra da Pulse em Cachoeira Paulista com instalação grátis e atendimento local.",
+    title: "Fibra da Pulse em Cachoeira Paulista com novos planos e instalação grátis.",
     subtitle:
-      "A cidade está dentro da comunicação promocional atual. Aproveite a consulta rápida de cobertura e fale com o comercial sem sair da página.",
-    note: "Cidade promocional na comunicação atual da LP. Consulte cobertura e condição final para o seu endereço.",
-    offerLabel: "Promoção destacada",
-    offerPrice: "Combo a partir de R$ 29,90*",
+      "Planos atualizados para 700 Mega, 800 Mega, 1 Giga e 1 Giga com 1 Mesh. Consulte cobertura e siga direto para o atendimento.",
+    note: "Consulte cobertura e condição final para o seu endereço.",
+    offerLabel: "Planos atualizados",
+    offerPrice: "Internet a partir de R$ 89,90",
     offerDescription:
-      "Condição promocional comunicada na LP atual para combo fixo + móvel. Planos de internet são confirmados no atendimento."
+      "Planos de internet atualizados para Cachoeira Paulista, com Via Livros incluso."
   },
   Vassouras: {
     eyebrow: "Oferta local para Vassouras",
-    title: "Pulse Telecom em Vassouras com fibra, suporte regional e condição promocional.",
+    title: "Pulse Telecom em Vassouras com fibra, suporte regional e novos planos.",
     subtitle:
-      "A cidade aparece na comunicação promocional atual. Use o WhatsApp para validar cobertura e receber a oferta mais adequada.",
-    note: "Cidade promocional na comunicação atual da LP. Consulte cobertura e condição final para o seu endereço.",
-    offerLabel: "Promoção destacada",
-    offerPrice: "Combo a partir de R$ 29,90*",
+      "Use o WhatsApp para validar cobertura e receber a opção mais adequada entre os planos atualizados.",
+    note: "Consulte cobertura e condição final para o seu endereço.",
+    offerLabel: "Planos atualizados",
+    offerPrice: "Internet a partir de R$ 89,90",
     offerDescription:
-      "Condição promocional comunicada na LP atual para combo fixo + móvel. Planos de internet são confirmados no atendimento."
+      "Planos de internet atualizados para Vassouras, com Via Livros incluso."
+  },
+  Valença: {
+    eyebrow: "Oferta local para Valença",
+    title: "Pulse Telecom em Valença com fibra, suporte regional e novos planos.",
+    subtitle:
+      "Use o WhatsApp para validar cobertura e receber a opção mais adequada entre os planos atualizados.",
+    note: "Consulte cobertura e condição final para o seu endereço.",
+    offerLabel: "Planos atualizados",
+    offerPrice: "Internet a partir de R$ 89,90",
+    offerDescription:
+      "Planos de internet atualizados para Valença, com Via Livros incluso."
   },
   "Barão de Juparanã": {
     eyebrow: "Atendimento Pulse em Barão de Juparanã",
@@ -47,13 +58,13 @@ const CITY_DATA = {
   },
   Resende: {
     eyebrow: "Atendimento Pulse em Resende",
-    title: "Internet fibra com atendimento local e consulta comercial mais rápida em Resende.",
+    title: "Internet fibra com atendimento local e novos planos em Resende.",
     subtitle:
-      "Selecione sua cidade, confirme cobertura por WhatsApp e avance apenas com os dados mínimos para o lead.",
-    note: "Ofertas e disponibilidade podem variar por praça. O atendimento comercial confirma a condição vigente.",
-    offerLabel: "Condição por cidade",
-    offerPrice: "Oferta sob consulta",
-    offerDescription: "A Pulse confirma cobertura, plano e condição comercial diretamente no atendimento."
+      "Selecione sua cidade, confirme cobertura por WhatsApp e avance com os dados mínimos para o atendimento.",
+    note: "Consulte cobertura e condição final para o seu endereço.",
+    offerLabel: "Planos atualizados",
+    offerPrice: "Internet a partir de R$ 89,90",
+    offerDescription: "Planos de internet atualizados para Resende, com Via Livros incluso."
   },
   Bananal: {
     eyebrow: "Atendimento Pulse em Bananal",
@@ -87,13 +98,13 @@ const CITY_DATA = {
   },
   "Visconde de Mauá / Maromba / Maringá": {
     eyebrow: "Atendimento Pulse em Visconde de Mauá, Maromba e Maringá",
-    title: "Consulte cobertura e plano ideal com a Pulse para Visconde de Mauá, Maromba e Maringá.",
+    title: "Consulte cobertura e novos planos da Pulse para Visconde de Mauá, Maromba e Maringá.",
     subtitle:
       "A nova estrutura encurta o caminho entre interesse, cidade e contato comercial sem depender de uma navegação longa.",
-    note: "Ofertas e disponibilidade podem variar por praça. O atendimento comercial confirma a condição vigente.",
-    offerLabel: "Condição por cidade",
-    offerPrice: "Oferta sob consulta",
-    offerDescription: "Use o WhatsApp ou o formulário para receber a condição aplicável à sua área."
+    note: "Consulte cobertura e condição final para o seu endereço.",
+    offerLabel: "Planos atualizados",
+    offerPrice: "Internet a partir de R$ 89,90",
+    offerDescription: "Planos de internet atualizados para a região, com Via Livros incluso."
   }
 };
 
@@ -122,54 +133,30 @@ const LEAD_CITY_CANONICAL_MAP = {
   "Maromba - RJ": "Visconde de Mau\u00e1 / Maromba / Maring\u00e1"
 };
 const STANDARD_PLAN_PRICING = {
-  "400 Mega": {
+  "700 Mega": {
     price: "89,90"
   },
-  "600 Mega": {
+  "800 Mega": {
     price: "99,90"
   },
-  "700 Mega": {
-    price: "119,90"
+  "1 Giga": {
+    price: "129,90"
   },
-  "800 Mega": {
+  "1 Giga + 1 Mesh": {
     price: "139,90"
-  },
-  "1 Giga": {
-    price: "189,90"
-  }
-};
-const PROMO_PLAN_PRICING = {
-  "400 Mega": {
-    price: "89,90"
-  },
-  "600 Mega": {
-    price: "59,90",
-    note: "Após 3 meses: R$ 99,90/mês."
-  },
-  "700 Mega": {
-    price: "59,90",
-    note: "Após 3 meses: R$ 119,90/mês."
-  },
-  "800 Mega": {
-    price: "59,90",
-    note: "Após 3 meses: R$ 139,90/mês."
-  },
-  "1 Giga": {
-    price: "59,90",
-    note: "Após 3 meses: R$ 189,90/mês."
   }
 };
 const CITY_PLAN_PRICING = {
   "Bananal - SP": STANDARD_PLAN_PRICING,
   "Arape\u00ed - SP": STANDARD_PLAN_PRICING,
   "S\u00e3o Jos\u00e9 do Barreiro - SP": STANDARD_PLAN_PRICING,
-  "Cachoeira Paulista - SP": PROMO_PLAN_PRICING,
-  "Vassouras - RJ": PROMO_PLAN_PRICING,
-  "Valen\u00e7a - RJ": PROMO_PLAN_PRICING,
-  "Resende - RJ": PROMO_PLAN_PRICING,
-  "Visconde de Mau\u00e1 - RJ": PROMO_PLAN_PRICING,
-  "Maring\u00e1 - RJ": PROMO_PLAN_PRICING,
-  "Maromba - RJ": PROMO_PLAN_PRICING
+  "Cachoeira Paulista - SP": STANDARD_PLAN_PRICING,
+  "Vassouras - RJ": STANDARD_PLAN_PRICING,
+  "Valen\u00e7a - RJ": STANDARD_PLAN_PRICING,
+  "Resende - RJ": STANDARD_PLAN_PRICING,
+  "Visconde de Mau\u00e1 - RJ": STANDARD_PLAN_PRICING,
+  "Maring\u00e1 - RJ": STANDARD_PLAN_PRICING,
+  "Maromba - RJ": STANDARD_PLAN_PRICING
 };
 const DEFAULT_WHATSAPP_NUMBER = "551231165043";
 const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx--iHDVECfmyCX1Gf43jtmDJWg0VHDsFPF_11UIAgUha0MWV5zTnKJvnRkHCxgcuMR/exec";
@@ -217,47 +204,12 @@ const PLAN_BUILDER_ADDONS = {
 };
 const MOBILE_PLAN_OPTIONS = [
   {
-    name: "5GB",
+    name: "Chip Pulse",
     price: "29,90",
-    meta: "60 min | 60 SMS",
-    apps: "Skeelo Light + WhatsApp"
-  },
-  {
-    name: "8GB",
-    price: "39,90",
-    meta: "60 min | 60 SMS",
-    apps: "Skeelo Light + WhatsApp"
-  },
-  {
-    name: "12GB",
-    price: "49,90",
-    meta: "Ligação ilimitada | 100 SMS",
-    apps: "Skeelo Regular + WhatsApp",
-    badge: "Mais vendido"
-  },
-  {
-    name: "19GB",
-    price: "59,90",
-    meta: "Ligação ilimitada | 100 SMS",
-    apps: "Skeelo Regular + WhatsApp"
-  },
-  {
-    name: "30GB",
-    price: "64,90",
-    meta: "Ligação ilimitada | 100 SMS",
-    apps: "Skeelo Premium + WhatsApp + Waze"
-  },
-  {
-    name: "40GB",
-    price: "74,90",
-    meta: "Ligação ilimitada | 100 SMS",
-    apps: "Skeelo Premium + WhatsApp + Waze"
-  },
-  {
-    name: "45GB",
-    price: "84,90",
-    meta: "Ligação ilimitada | 100 SMS",
-    apps: "Skeelo Premium + WhatsApp + Waze"
+    priceLabel: "R$ 29,90",
+    meta: "Planos móveis disponíveis a partir de R$ 29,90.",
+    apps: "O atendente apresenta as opções e tira suas dúvidas no atendimento.",
+    badge: "A partir de"
   }
 ];
 const state = {
@@ -269,8 +221,7 @@ const state = {
     pulsewatch: false
   },
   selectedMobilePlan: "",
-  selectedMobilePrice: "",
-  mobilePickerOpen: false
+  selectedMobilePrice: ""
 };
 const TOUR_STORAGE_KEY = "pulse_lp_tour_seen_v6";
 const TOUR_STEPS = [
@@ -467,24 +418,11 @@ function applyPlanPricing(city) {
   document.querySelectorAll("[data-plan-card]").forEach((card) => {
     const plan = card.getAttribute("data-plan-card");
     const priceValue = card.querySelector(".plan-price-value");
-    const promoNote = card.querySelector(".plan-post-promo-note");
     const planPricing = pricing[plan] ?? STANDARD_PLAN_PRICING[plan];
 
     if (priceValue && planPricing?.price) {
       priceValue.textContent = planPricing.price;
     }
-
-    if (!promoNote) {
-      return;
-    }
-
-    if (planPricing?.note) {
-      promoNote.textContent = planPricing.note;
-      promoNote.hidden = false;
-      return;
-    }
-
-    promoNote.hidden = true;
   });
 }
 
@@ -525,7 +463,7 @@ function getSelectedAddonKeys() {
 
 function getAddonDisplay(key) {
   if (key === "mobile") {
-    return state.selectedMobilePlan ? `Chip Pulse ${state.selectedMobilePlan}` : PLAN_BUILDER_ADDONS.mobile.display;
+    return state.selectedAddons.mobile ? "Chip Pulse a partir de R$ 29,90" : PLAN_BUILDER_ADDONS.mobile.display;
   }
 
   if (key === "pulsewatch") {
@@ -540,7 +478,7 @@ function getMobilePlanOptionByName(planName) {
 }
 
 function getDefaultMobilePlanOption() {
-  return getMobilePlanOptionByName("12GB") ?? MOBILE_PLAN_OPTIONS[0];
+  return MOBILE_PLAN_OPTIONS[0];
 }
 
 function getCurrentMobilePlanOption() {
@@ -669,16 +607,13 @@ function updatePlanBuilder() {
   const mobilePlanPrice = document.getElementById("mobilePlanPrice");
   const mobilePlanMeta = document.getElementById("mobilePlanMeta");
   const mobilePlanApps = document.getElementById("mobilePlanApps");
-  const mobilePlanPickerTrigger = document.getElementById("mobilePlanPickerTrigger");
-  const mobilePlanPickerLabel = document.getElementById("mobilePlanPickerLabel");
-  const mobilePlanPickerPanel = document.getElementById("mobilePlanPickerPanel");
 
   if (mobilePlanName) {
     mobilePlanName.textContent = featuredMobilePlan.name;
   }
 
   if (mobilePlanPrice) {
-    mobilePlanPrice.textContent = `R$ ${featuredMobilePlan.price}`;
+    mobilePlanPrice.textContent = featuredMobilePlan.priceLabel ?? `R$ ${featuredMobilePlan.price}`;
   }
 
   if (mobilePlanMeta) {
@@ -701,25 +636,6 @@ function updatePlanBuilder() {
     mobilePlanFeatured.classList.toggle("is-selected", isFeaturedSelected);
     mobilePlanFeatured.setAttribute("aria-pressed", isFeaturedSelected ? "true" : "false");
   }
-
-  if (mobilePlanPickerPanel && mobilePlanPickerTrigger) {
-    mobilePlanPickerPanel.hidden = !state.mobilePickerOpen;
-    mobilePlanPickerTrigger.setAttribute("aria-expanded", state.mobilePickerOpen ? "true" : "false");
-  }
-
-  if (mobilePlanPickerLabel) {
-    mobilePlanPickerLabel.textContent =
-      state.selectedAddons.mobile && state.selectedMobilePlan
-        ? `${state.selectedMobilePlan} selecionado`
-        : "Mais opções";
-  }
-
-  document.querySelectorAll(".mobile-plan-picker-option").forEach((option) => {
-    const planName = option.getAttribute("data-mobile-plan") ?? "";
-    const isSelected = state.selectedAddons.mobile && state.selectedMobilePlan === planName;
-    option.classList.toggle("is-selected", isSelected);
-    option.setAttribute("aria-pressed", isSelected ? "true" : "false");
-  });
 
   const pulsewatchFeatured = document.getElementById("pulsewatchFeatured");
   const pulsewatchFeaturedBadge = document.getElementById("pulsewatchFeaturedBadge");
@@ -772,14 +688,8 @@ function selectMobilePlan(planName, planPrice) {
     state.selectedMobilePrice = planPrice || mobilePlan.price;
   }
 
-  state.mobilePickerOpen = false;
   updatePlanBuilder();
   advanceTourTo(2);
-}
-
-function toggleMobilePlanPicker() {
-  state.mobilePickerOpen = !state.mobilePickerOpen;
-  updatePlanBuilder();
 }
 
 function togglePulsewatchPlan() {
@@ -1661,53 +1571,72 @@ function setupPremiumMotion() {
 
   document.body.classList.add("motion-ready");
 
-  const heroSequence = [
-    [".hero-title-static", "hero-reveal"],
-    [".hero-subtitle-strong", "hero-reveal reveal-step-2"],
-    [".cta-group", "hero-reveal reveal-step-3"]
-  ];
-
-  heroSequence.forEach(([selector, classes]) => {
-    const element = document.querySelector(selector);
-    if (element) {
-      classes.split(" ").forEach((className) => element.classList.add(className));
-    }
-  });
-
-  requestAnimationFrame(() => {
-    document.querySelectorAll(".hero-reveal").forEach((element) => element.classList.add("is-visible"));
-  });
-
   const observer = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("is-visible");
-          observer.unobserve(entry.target);
+        if (!entry.isIntersecting) {
+          return;
         }
+
+        const element = entry.target;
+        element.classList.add("is-visible");
+        observer.unobserve(element);
+
+        const cleanupMotionClasses = () => {
+          element.classList.remove(
+            "scroll-reveal",
+            "scroll-reveal-fade",
+            "scroll-reveal-rise",
+            "scroll-reveal-left",
+            "scroll-reveal-right",
+            "is-visible"
+          );
+          element.style.removeProperty("--reveal-delay");
+        };
+
+        element.addEventListener(
+          "transitionend",
+          (event) => {
+            if (event.propertyName === "opacity") {
+              cleanupMotionClasses();
+            }
+          },
+          { once: true }
+        );
+
+        window.setTimeout(cleanupMotionClasses, 1200);
       });
     },
     {
-      threshold: 0.18,
-      rootMargin: "0px 0px -8% 0px"
+      threshold: window.innerWidth <= 620 ? 0.08 : 0.14,
+      rootMargin: "0px 0px -10% 0px"
     }
   );
 
-  [
-    ".trust-strip",
-    ".plans-section",
-    ".plan-builder-section",
-    ".reviews-section",
-    ".proof-section",
-    ".lead-section",
-    ".faq-section",
-    ".site-footer"
-  ].forEach((selector) => {
-    const element = document.querySelector(selector);
-    if (element) {
-      element.classList.add("reveal-block");
+  const revealGroups = [
+    { selector: ".proof-copy", mode: "left" },
+    { selector: ".proof-card", mode: "fade", stagger: 70 },
+    { selector: ".reviews-heading", mode: "rise" },
+    { selector: ".reviews-carousel", mode: "rise", delay: 90 },
+    { selector: ".trust-strip-grid > div", mode: "fade", stagger: 55 },
+    { selector: ".plan-card", mode: "fade", stagger: 60 },
+    { selector: ".plan-builder-heading", mode: "rise" },
+    { selector: ".plan-builder-option", mode: "fade", stagger: 70 },
+    { selector: ".plan-builder-summary", mode: "rise", delay: 110 },
+    { selector: ".lead-copy", mode: "left" },
+    { selector: ".lead-form", mode: "right", delay: 80 },
+    { selector: ".faq-section .section-heading", mode: "rise" },
+    { selector: ".faq-list details", mode: "fade", stagger: 45 },
+    { selector: ".site-footer", mode: "rise" }
+  ];
+
+  revealGroups.forEach(({ selector, mode, delay = 0, stagger = 0 }) => {
+    document.querySelectorAll(selector).forEach((element, index) => {
+      const revealDelay = Math.min(delay + index * stagger, 300);
+      element.classList.add("scroll-reveal", `scroll-reveal-${mode}`);
+      element.style.setProperty("--reveal-delay", `${revealDelay}ms`);
       observer.observe(element);
-    }
+    });
   });
 }
 
@@ -1767,44 +1696,16 @@ function setupPlanBuilder() {
   });
 
   const mobilePlanFeatured = document.getElementById("mobilePlanFeatured");
-  const mobilePlanPickerTrigger = document.getElementById("mobilePlanPickerTrigger");
 
   mobilePlanFeatured?.addEventListener("click", () => {
     const featuredPlan = getDefaultMobilePlanOption();
     selectMobilePlan(featuredPlan.name, featuredPlan.price);
   });
 
-  mobilePlanPickerTrigger?.addEventListener("click", () => {
-    toggleMobilePlanPicker();
-  });
-
-  document.querySelectorAll(".mobile-plan-picker-option").forEach((option) => {
-    option.addEventListener("click", () => {
-      const selectedPlan = option.getAttribute("data-mobile-plan") ?? "";
-      const selectedPrice = option.getAttribute("data-mobile-price") ?? "";
-
-      if (!selectedPlan) {
-        return;
-      }
-
-      selectMobilePlan(selectedPlan, selectedPrice);
-    });
-  });
-
   const pulsewatchFeatured = document.getElementById("pulsewatchFeatured");
 
   pulsewatchFeatured?.addEventListener("click", () => {
     togglePulsewatchPlan();
-  });
-
-  document.addEventListener("click", (event) => {
-    if (state.mobilePickerOpen) {
-      const picker = document.querySelector(".mobile-plan-picker");
-      if (!picker || !picker.contains(event.target)) {
-        state.mobilePickerOpen = false;
-        updatePlanBuilder();
-      }
-    }
   });
 
   const internetOnlyButton = document.getElementById("planBuilderInternetOnly");
