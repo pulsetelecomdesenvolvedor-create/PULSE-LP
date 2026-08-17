@@ -6,17 +6,15 @@
   const phone = page.dataset.whatsapp ?? "5512988930891";
 
   const buildWhatsappUrl = (message) => `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+  const campaignMessage = `Olá! Vim ${sourcePrefix} e gostaria de conhecer os planos Pulse Telecom em ${city}!`;
 
   document.querySelectorAll("[data-plan-message]").forEach((link) => {
-    const plan = link.getAttribute("data-plan-message") ?? "plano";
-    const message = `Olá! Vim ${sourcePrefix} e quero contratar o plano de ${plan} em ${city}.`;
-    link.href = buildWhatsappUrl(message);
-    link.setAttribute("aria-label", `Contratar plano ${plan} indicado por ${partner}`);
+    link.href = buildWhatsappUrl(campaignMessage);
+    link.setAttribute("aria-label", `Conhecer os planos Pulse Telecom indicados por ${partner}`);
   });
 
   document.querySelectorAll("[data-consult-message]").forEach((link) => {
-    const message = `Olá! Vim ${sourcePrefix} e quero conhecer os planos da Pulse em ${city}.`;
-    link.href = buildWhatsappUrl(message);
+    link.href = buildWhatsappUrl(campaignMessage);
   });
 
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
@@ -42,7 +40,7 @@
     }
   );
 
-  document.querySelectorAll(".partner-hero-banner, .plan-card, .faq-list details").forEach((element) => {
+  document.querySelectorAll(".partner-hero-banner, .partner-cover-banner, .plan-card, .faq-list details").forEach((element) => {
     element.classList.add("scroll-reveal");
     observer.observe(element);
   });
