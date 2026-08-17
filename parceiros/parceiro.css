@@ -655,17 +655,32 @@ a {
 }
 
 @media (max-width: 720px) {
-  .partner-header-row {
-    align-items: stretch;
-    flex-direction: column;
+  .partner-header {
+    padding: 18px 0 20px;
   }
 
-  .partner-header-row .button {
+  .partner-header-row {
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+  }
+
+  .partner-brand {
+    display: flex;
+    justify-content: center;
     width: 100%;
   }
 
+  .partner-brand img {
+    width: min(232px, 72vw);
+  }
+
+  .partner-header-row .button {
+    display: none;
+  }
+
   .partner-hero {
-    padding-top: 18px;
+    padding-top: 16px;
   }
 
   .partner-hero-banner,
