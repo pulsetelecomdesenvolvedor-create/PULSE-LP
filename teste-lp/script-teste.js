@@ -563,6 +563,16 @@ function buildCoverageMessage(city) {
   return "Olá! Quero consultar cobertura da Pulse Telecom.";
 }
 
+function buildConsultMessage(city) {
+  const messageCity = normalizePlanCity(city);
+
+  if (messageCity) {
+    return `Ol\u00e1! Estou com d\u00favida referente aos planos na cidade ${messageCity} e gostaria de falar com um consultor.`;
+  }
+
+  return "Ol\u00e1! Estou com d\u00favida referente aos planos e gostaria de falar com um consultor.";
+}
+
 function buildPlanMessage(city, plan) {
   const cityText = city ? ` para ${city}` : "";
   return `Olá! Quero verificar disponibilidade do plano ${plan}${cityText}.`;
@@ -1569,6 +1579,10 @@ function applyCity(city) {
   const footerWhatsappCta = document.getElementById("footerWhatsappCta");
   if (footerWhatsappCta) {
     footerWhatsappCta.href = coverageLink;
+  }
+  const consultWidgetWhatsapp = document.getElementById("consultWidgetWhatsapp");
+  if (consultWidgetWhatsapp) {
+    consultWidgetWhatsapp.href = buildWhatsappLink(buildConsultMessage(city), city);
   }
 
   document.querySelectorAll(".js-plan-whatsapp").forEach((link) => {
