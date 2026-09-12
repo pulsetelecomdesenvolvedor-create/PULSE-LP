@@ -556,11 +556,7 @@ function renderPlanCards(city) {
 }
 
 function buildCoverageMessage(city) {
-  if (city) {
-    return `Olá! Quero consultar cobertura da Pulse Telecom para ${city}.`;
-  }
-
-  return "Olá! Quero consultar cobertura da Pulse Telecom.";
+  return buildConsultMessage(city);
 }
 
 function buildConsultMessage(city) {
@@ -574,8 +570,17 @@ function buildConsultMessage(city) {
 }
 
 function buildPlanMessage(city, plan) {
-  const cityText = city ? ` para ${city}` : "";
-  return `Olá! Quero verificar disponibilidade do plano ${plan}${cityText}.`;
+  return buildConsultMessage(city);
+}
+
+function buildWhatsappSummaryCopy() {
+  const messageCity = normalizePlanCity(state.city);
+
+  if (messageCity) {
+    return `A mensagem para o WhatsApp vai identificar a cidade ${messageCity} para o consultor continuar o atendimento.`;
+  }
+
+  return "Selecione sua cidade para que a mensagem do WhatsApp siga com o rastreio correto para o consultor.";
 }
 
 function formatNaturalList(values) {
@@ -625,36 +630,11 @@ function getCurrentMobilePlanOption() {
 }
 
 function buildPlanBuilderMessage() {
-  const cityText = state.city ? ` para ${state.city}` : "";
-  const selectedAddons = getSelectedAddonKeys()
-    .filter((key) => key !== "pulsewatch" || Boolean(state.selectedPlan))
-    .map((key) => getAddonDisplay(key));
-
-  if (!state.selectedPlan) {
-    if (selectedAddons.length === 0) {
-      return `Olá! Quero conhecer os planos da Pulse Telecom${cityText}.`;
-    }
-
-    return `Olá! Quero conhecer os planos da Pulse Telecom${cityText}. Também tenho interesse em ${formatNaturalList(selectedAddons)}.`;
-  }
-
-  const base = `Olá! Quero contratar o plano ${state.selectedPlan}${cityText}.`;
-
-  if (selectedAddons.length === 0) {
-    return `${base} Quero seguir só com internet por enquanto.`;
-  }
-
-  return `${base} Também quero incluir ${formatNaturalList(selectedAddons)}.`;
+  return buildConsultMessage(state.city);
 }
 
 function buildInternetOnlyMessage() {
-  const cityText = state.city ? ` para ${state.city}` : "";
-
-  if (!state.selectedPlan) {
-    return `Olá! Quero conhecer os planos de internet${cityText}. Quero seguir só com internet por enquanto.`;
-  }
-
-  return `Olá! Quero contratar o plano ${state.selectedPlan}${cityText}. Quero seguir só com internet por enquanto.`;
+  return buildConsultMessage(state.city);
 }
 
 function selectPlan(planName, sourceCard) {
@@ -706,7 +686,7 @@ function updatePlanBuilder() {
       summaryCopy.textContent =
         selectedAddonDisplays.length === 0
           ? `Escolha um plano de internet acima para liberar a TV Pulse Watch ou fale com a Pulse para receber a melhor opção${state.city ? ` para ${state.city}` : ""}.`
-          : `Sua mensagem para o WhatsApp vai incluir ${formatNaturalList(selectedAddonDisplays)}${state.city ? ` para ${state.city}` : ""}.`;
+          : buildWhatsappSummaryCopy();
     }
   } else {
     if (summaryTitle) {
@@ -717,10 +697,7 @@ function updatePlanBuilder() {
     }
 
     if (summaryCopy) {
-      summaryCopy.textContent =
-        selectedAddonDisplays.length === 0
-          ? "Se preferir, você pode seguir só com internet ou adicionar Telefone Fixo, Chip Pulse e TV Pulse Watch antes do atendimento."
-          : `Sua mensagem para o WhatsApp vai incluir ${formatNaturalList(selectedAddonDisplays)}${state.city ? ` para ${state.city}` : ""}.`;
+      summaryCopy.textContent = buildWhatsappSummaryCopy();
     }
   }
 
