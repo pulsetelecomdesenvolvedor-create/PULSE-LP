@@ -2,3 +2,6 @@ Thumbs.db
 desktop.ini
 
 .vercel
+
+# Preview e evidências locais; não fazem parte da publicação.
+preview-local/
