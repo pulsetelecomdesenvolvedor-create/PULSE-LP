@@ -4,14 +4,14 @@ const CITY_DATA = {
     eyebrow: "Internet fibra da Pulse Telecom na sua cidade",
     title: "Escolha sua cidade e veja a melhor oferta disponível para o seu endereço.",
     subtitle:
-      "Instalação grátis, suporte local e planos de 700 Mega, 800 Mega, 1 Giga e 1 Giga com 1 Mesh. O Chip Pulse pode ser adicionado a partir de R$ 29,90.",
-    note: "Selecione sua cidade para personalizar a oferta e acelerar o atendimento comercial.",
+      "Instalação grátis, suporte local e planos de 700 Mega, 800 Mega, 1 Giga e 1 Giga com 1 Mesh. Todos com PulseTV incluso e Chip Pulse a partir de R$ 29,90.",
+    note: "Selecione sua cidade para acelerar o atendimento comercial e manter o rastreio correto do lead.",
     offerLabel: "Planos atualizados",
     offerPrice: "A partir de R$ 89,90",
     offerDescription:
-      "A Pulse confirma cobertura e disponibilidade dos planos conforme a cidade escolhida.",
+      "A Pulse confirma cobertura no endereço escolhido. Os planos fibra já incluem PulseTV gratuitamente.",
     plansIntro:
-      "A grade abaixo organiza os planos atualizados por perfil de uso. Disponibilidade pode variar por cidade."
+      "A grade abaixo organiza os planos atualizados por perfil de uso. Todos incluem PulseTV sem custo adicional."
   },
   "Cachoeira Paulista": {
     eyebrow: "Oferta local para Cachoeira Paulista",
@@ -22,7 +22,7 @@ const CITY_DATA = {
     offerLabel: "Planos atualizados",
     offerPrice: "Internet a partir de R$ 89,90",
     offerDescription:
-      "Planos de internet atualizados para Cachoeira Paulista, com Via Livros incluso."
+      "Planos de internet atualizados para Cachoeira Paulista, com PulseTV e Via Livros incluso."
   },
   Vassouras: {
     eyebrow: "Oferta local para Vassouras",
@@ -33,7 +33,7 @@ const CITY_DATA = {
     offerLabel: "Planos atualizados",
     offerPrice: "Internet a partir de R$ 89,90",
     offerDescription:
-      "Planos de internet atualizados para Vassouras, com Via Livros incluso."
+      "Planos de internet atualizados para Vassouras, com PulseTV e Via Livros incluso."
   },
   Valença: {
     eyebrow: "Oferta local para Valença",
@@ -44,7 +44,7 @@ const CITY_DATA = {
     offerLabel: "Planos atualizados",
     offerPrice: "Internet a partir de R$ 89,90",
     offerDescription:
-      "Planos de internet atualizados para Valença, com Via Livros incluso."
+      "Planos de internet atualizados para Valença, com PulseTV e Via Livros incluso."
   },
   "Barão de Juparanã": {
     eyebrow: "Atendimento Pulse em Barão de Juparanã",
@@ -52,9 +52,9 @@ const CITY_DATA = {
     subtitle:
       "A nova versão destaca a consulta comercial antes do formulário longo para acelerar o contato com a equipe.",
     note: "Ofertas e disponibilidade podem variar por praça. O atendimento comercial confirma a condição vigente.",
-    offerLabel: "Condição por cidade",
-    offerPrice: "Oferta sob consulta",
-    offerDescription: "Selecione o plano desejado e fale com o comercial para validar disponibilidade no seu endereço."
+    offerLabel: "Planos atualizados",
+    offerPrice: "Internet a partir de R$ 89,90",
+    offerDescription: "Planos de internet atualizados para Barão de Juparanã, com PulseTV e Via Livros incluso."
   },
   Resende: {
     eyebrow: "Atendimento Pulse em Resende",
@@ -64,37 +64,37 @@ const CITY_DATA = {
     note: "Consulte cobertura e condição final para o seu endereço.",
     offerLabel: "Planos atualizados",
     offerPrice: "Internet a partir de R$ 89,90",
-    offerDescription: "Planos de internet atualizados para Resende, com Via Livros incluso."
+    offerDescription: "Planos de internet atualizados para Resende, com PulseTV e Via Livros incluso."
   },
   Bananal: {
     eyebrow: "Atendimento Pulse em Bananal",
-    title: "Pulse Telecom em Bananal com fibra, instalação grátis e suporte local.",
+    title: "Pulse Telecom em Bananal com novos planos, PulseTV incluso e instalação grátis.",
     subtitle:
-      "A proposta desta versão teste é reduzir ruído, deixar a cidade explícita e facilitar o próximo passo comercial.",
-    note: "Ofertas e disponibilidade podem variar por praça. O atendimento comercial confirma a condição vigente.",
-    offerLabel: "Condição por cidade",
-    offerPrice: "Oferta sob consulta",
-    offerDescription: "Consulte a disponibilidade do plano ideal para o seu endereço em Bananal."
+      "Planos atualizados para 700 Mega, 800 Mega, 1 Giga e 1 Giga com 1 Mesh. Todos com PulseTV incluso sem custo adicional.",
+    note: "Consulte cobertura e condição final para o seu endereço.",
+    offerLabel: "Planos atualizados",
+    offerPrice: "Internet a partir de R$ 89,90",
+    offerDescription: "Planos de internet atualizados para Bananal, com PulseTV e Via Livros incluso."
   },
   "São José do Barreiro": {
     eyebrow: "Atendimento Pulse em São José do Barreiro",
-    title: "Consulte cobertura da Pulse em São José do Barreiro com um fluxo mais direto.",
+    title: "Pulse Telecom em São José do Barreiro com novos planos e PulseTV incluso.",
     subtitle:
-      "A cidade no topo orienta headline, formulário e WhatsApp para deixar a intenção do lead mais clara para o comercial.",
-    note: "Ofertas e disponibilidade podem variar por praça. O atendimento comercial confirma a condição vigente.",
-    offerLabel: "Condição por cidade",
-    offerPrice: "Oferta sob consulta",
-    offerDescription: "Selecione o plano desejado e valide cobertura pelo WhatsApp comercial."
+      "Planos atualizados para 700 Mega, 800 Mega, 1 Giga e 1 Giga com 1 Mesh. Todos com PulseTV incluso sem custo adicional.",
+    note: "Consulte cobertura e condição final para o seu endereço.",
+    offerLabel: "Planos atualizados",
+    offerPrice: "Internet a partir de R$ 89,90",
+    offerDescription: "Planos de internet atualizados para São José do Barreiro, com PulseTV e Via Livros incluso."
   },
   Arapeí: {
     eyebrow: "Atendimento Pulse em Arapeí",
-    title: "Internet fibra da Pulse em Arapeí com contato mais rápido e menos fricção.",
+    title: "Internet fibra da Pulse em Arapeí com novos planos e PulseTV incluso.",
     subtitle:
-      "Nesta versão teste, a prioridade é fazer o usuário entender a oferta e agir com clareza nos primeiros segundos.",
-    note: "Ofertas e disponibilidade podem variar por praça. O atendimento comercial confirma a condição vigente.",
-    offerLabel: "Condição por cidade",
-    offerPrice: "Oferta sob consulta",
-    offerDescription: "Cobertura e condição comercial são confirmadas com a equipe local da Pulse."
+      "Planos atualizados para 700 Mega, 800 Mega, 1 Giga e 1 Giga com 1 Mesh. Todos com PulseTV incluso sem custo adicional.",
+    note: "Consulte cobertura e condição final para o seu endereço.",
+    offerLabel: "Planos atualizados",
+    offerPrice: "Internet a partir de R$ 89,90",
+    offerDescription: "Planos de internet atualizados para Arapeí, com PulseTV e Via Livros incluso."
   },
   "Visconde de Mauá / Maromba / Maringá": {
     eyebrow: "Atendimento Pulse em Visconde de Mauá, Maromba e Maringá",
@@ -104,7 +104,7 @@ const CITY_DATA = {
     note: "Consulte cobertura e condição final para o seu endereço.",
     offerLabel: "Planos atualizados",
     offerPrice: "Internet a partir de R$ 89,90",
-    offerDescription: "Planos de internet atualizados para a região, com Via Livros incluso."
+    offerDescription: "Planos de internet atualizados para a região, com PulseTV e Via Livros incluso."
   }
 };
 
@@ -132,8 +132,8 @@ const LEAD_CITY_CANONICAL_MAP = {
   "Maring\u00e1 - RJ": "Visconde de Mau\u00e1 / Maromba / Maring\u00e1",
   "Maromba - RJ": "Visconde de Mau\u00e1 / Maromba / Maring\u00e1"
 };
-const PLAN_BENEFITS_DEFAULT = ["Instalação Grátis", "Suporte especializado", "WIFI 6", "Via Livros"];
-const PLAN_BENEFITS_MESH = ["Instalação Grátis", "Suporte especializado", "WIFI 6", "Pulse Mesh", "Via Livros"];
+const PLAN_BENEFITS_DEFAULT = ["Instalação Grátis", "Suporte especializado", "WIFI 6", "PulseTV incluso", "Via Livros"];
+const PLAN_BENEFITS_MESH = ["Instalação Grátis", "Suporte especializado", "WIFI 6", "PulseTV incluso", "Pulse Mesh", "Via Livros"];
 const UPDATED_PLAN_SET = [
   {
     name: "700 Mega",
@@ -170,50 +170,6 @@ const UPDATED_PLAN_SET = [
     compactUnit: true
   }
 ];
-const LEGACY_PLAN_SET = [
-  {
-    name: "400 Mega",
-    badge: "Pulse Essencial",
-    speed: "400",
-    unit: "Mega",
-    price: "89,90",
-    benefits: PLAN_BENEFITS_DEFAULT
-  },
-  {
-    name: "600 Mega",
-    badge: "Plano destaque",
-    speed: "600",
-    unit: "Mega",
-    price: "99,90",
-    benefits: PLAN_BENEFITS_DEFAULT,
-    featured: true
-  },
-  {
-    name: "700 Mega",
-    badge: "Mais desempenho",
-    speed: "700",
-    unit: "Mega",
-    price: "119,90",
-    benefits: PLAN_BENEFITS_DEFAULT
-  },
-  {
-    name: "800 Mega",
-    badge: "Alta performance",
-    speed: "800",
-    unit: "Mega",
-    price: "139,90",
-    benefits: PLAN_BENEFITS_MESH
-  },
-  {
-    name: "1 Giga",
-    badge: "Máxima cobertura",
-    speed: "1",
-    unit: "Giga",
-    price: "189,90",
-    benefits: PLAN_BENEFITS_MESH
-  }
-];
-const LEGACY_PLAN_CITIES = new Set(["Bananal", "Arapeí", "São José do Barreiro"]);
 const DEFAULT_WHATSAPP_NUMBER = "551231165043";
 const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx--iHDVECfmyCX1Gf43jtmDJWg0VHDsFPF_11UIAgUha0MWV5zTnKJvnRkHCxgcuMR/exec";
 const CONECTAI_LEAD_PROXY_URL = "https://lp.pulsetelecom.net.br/api/conectai-webhook";
@@ -252,10 +208,6 @@ const PLAN_BUILDER_ADDONS = {
   mobile: {
     label: "Chip Pulse",
     display: "Chip Pulse"
-  },
-  pulsewatch: {
-    label: "TV",
-    display: "TV Pulse Watch"
   }
 };
 const MOBILE_PLAN_OPTIONS = [
@@ -273,8 +225,7 @@ const state = {
   selectedPlan: "",
   selectedAddons: {
     fixed: false,
-    mobile: false,
-    pulsewatch: false
+    mobile: false
   },
   selectedMobilePlan: "",
   selectedMobilePrice: ""
@@ -289,7 +240,7 @@ const TOUR_STEPS = [
   {
     selector: "#etapa-combo",
     title: "Complete com comunicação e entretenimento",
-    description: "Depois de escolher a internet, adicione Telefone Fixo, Chip Pulse ou TV Pulse Watch para montar sua solicitação."
+    description: "Depois de escolher a internet, adicione Telefone Fixo ou Chip Pulse para montar sua solicitação. O PulseTV já está incluso."
   },
   {
     selector: "#planBuilderWhatsappCta",
@@ -469,7 +420,7 @@ function normalizePlanCity(city) {
 }
 
 function getPlanSet(city) {
-  return LEGACY_PLAN_CITIES.has(normalizePlanCity(city)) ? LEGACY_PLAN_SET : UPDATED_PLAN_SET;
+  return UPDATED_PLAN_SET;
 }
 
 function escapeHtml(value) {
@@ -540,10 +491,9 @@ function renderPlanCards(city) {
 
   if (state.selectedPlan && !planNames.includes(state.selectedPlan)) {
     state.selectedPlan = "";
-    state.selectedAddons.pulsewatch = false;
   }
 
-  grid.classList.toggle("plans-grid-legacy", planSet === LEGACY_PLAN_SET);
+  grid.classList.remove("plans-grid-legacy");
   grid.innerHTML = planSet.map((plan) => buildPlanCard(plan)).join("");
 
   if (state.selectedPlan) {
@@ -610,10 +560,6 @@ function getAddonDisplay(key) {
     return PLAN_BUILDER_ADDONS.mobile.display;
   }
 
-  if (key === "pulsewatch") {
-    return PLAN_BUILDER_ADDONS.pulsewatch.display;
-  }
-
   return PLAN_BUILDER_ADDONS[key]?.display ?? key;
 }
 
@@ -659,12 +605,8 @@ function updatePlanBuilder() {
   const whatsappCta = document.getElementById("planBuilderWhatsappCta");
   const internetOnlyCta = document.getElementById("planBuilderInternetOnly");
 
-  if (!state.selectedPlan && state.selectedAddons.pulsewatch) {
-    state.selectedAddons.pulsewatch = false;
-  }
-
   if (selectedPlanText) {
-    selectedPlanText.textContent = `Você selecionou o plano ${state.selectedPlan}${state.city ? ` para ${state.city}` : ""}. Agora você pode completar com telefonia e TV antes de seguir para o WhatsApp.`;
+    selectedPlanText.textContent = `Você selecionou o plano ${state.selectedPlan}${state.city ? ` para ${state.city}` : ""}. O PulseTV já está incluso; se quiser, complete com telefonia antes de seguir para o WhatsApp.`;
   }
 
   const selectedAddonKeys = getSelectedAddonKeys();
@@ -672,7 +614,7 @@ function updatePlanBuilder() {
 
   if (!state.selectedPlan) {
     if (selectedPlanText) {
-      selectedPlanText.textContent = "Escolha um plano de internet acima. Depois, você poderá adicionar Telefone Fixo, Chip Pulse e TV Pulse Watch.";
+      selectedPlanText.textContent = "Escolha um plano de internet acima. Todos já incluem PulseTV; depois, você poderá adicionar Telefone Fixo ou Chip Pulse.";
     }
 
     if (summaryTitle) {
@@ -685,7 +627,7 @@ function updatePlanBuilder() {
     if (summaryCopy) {
       summaryCopy.textContent =
         selectedAddonDisplays.length === 0
-          ? `Escolha um plano de internet acima para liberar a TV Pulse Watch ou fale com a Pulse para receber a melhor opção${state.city ? ` para ${state.city}` : ""}.`
+          ? `Escolha um plano de internet acima ou fale com a Pulse para receber a melhor opção${state.city ? ` para ${state.city}` : ""}. Todos os planos fibra já incluem PulseTV.`
           : buildWhatsappSummaryCopy();
     }
   } else {
@@ -753,38 +695,6 @@ function updatePlanBuilder() {
     mobilePlanFeatured.setAttribute("aria-pressed", isFeaturedSelected ? "true" : "false");
   }
 
-  const pulsewatchFeatured = document.getElementById("pulsewatchFeatured");
-  const pulsewatchFeaturedBadge = document.getElementById("pulsewatchFeaturedBadge");
-  const pulsewatchCard = document.querySelector('.plan-builder-option[data-addon="pulsewatch"]');
-  const pulsewatchRequirement = document.getElementById("pulsewatchRequirement");
-  const pulsewatchRequirementCta = document.getElementById("pulsewatchRequirementCta");
-  const hasInternetPlan = Boolean(state.selectedPlan);
-
-  if (pulsewatchCard) {
-    pulsewatchCard.classList.toggle("is-locked", !hasInternetPlan);
-    pulsewatchCard.setAttribute("aria-disabled", hasInternetPlan ? "false" : "true");
-  }
-
-  if (pulsewatchRequirement) {
-    pulsewatchRequirement.textContent = hasInternetPlan
-      ? `Disponível como adicional do plano ${state.selectedPlan}.`
-      : "Disponível exclusivamente junto com um plano de internet Pulse.";
-  }
-
-  if (pulsewatchRequirementCta) {
-    pulsewatchRequirementCta.hidden = hasInternetPlan;
-  }
-
-  if (pulsewatchFeatured) {
-    const isSelected = state.selectedAddons.pulsewatch;
-    pulsewatchFeatured.disabled = !hasInternetPlan;
-    pulsewatchFeatured.classList.toggle("is-selected", isSelected);
-    pulsewatchFeatured.setAttribute("aria-pressed", isSelected ? "true" : "false");
-  }
-
-  if (pulsewatchFeaturedBadge) {
-    pulsewatchFeaturedBadge.textContent = state.selectedAddons.pulsewatch ? "Selecionado" : "Única opção";
-  }
 }
 
 function selectMobilePlan(planName, planPrice) {
@@ -804,16 +714,6 @@ function selectMobilePlan(planName, planPrice) {
     state.selectedMobilePrice = planPrice || mobilePlan.price;
   }
 
-  updatePlanBuilder();
-  advanceTourTo(2);
-}
-
-function togglePulsewatchPlan() {
-  if (!state.selectedPlan) {
-    return;
-  }
-
-  state.selectedAddons.pulsewatch = !state.selectedAddons.pulsewatch;
   updatePlanBuilder();
   advanceTourTo(2);
 }
@@ -1321,6 +1221,14 @@ function advanceTourTo(stepIndex) {
 }
 
 function requestTourStartIfEligible() {
+  return;
+}
+
+function startTour() {
+  return;
+}
+
+function requestTourStartIfEligibleLegacy() {
   if (tourState.active || tourState.hasStarted) {
     return;
   }
@@ -1329,10 +1237,10 @@ function requestTourStartIfEligible() {
     return;
   }
 
-  startTour();
+  startTourLegacy();
 }
 
-function startTour() {
+function startTourLegacy() {
   if (tourState.hasStarted) {
     return;
   }
@@ -1645,19 +1553,19 @@ function syncCitySelectors(sourceValue, options = {}) {
   const { select } = getCityGateElements();
 
   if (!normalizedCity) {
-    if (top && state.city) {
-      top.value = state.city;
+    if (top) {
+      top.value = "";
     }
 
-    if (form && state.city) {
-      form.value = state.city;
+    if (form) {
+      form.value = "";
     }
 
-    if (select && state.city) {
-      select.value = state.city;
+    if (select) {
+      select.value = "";
     }
 
-    openCityGate(state.city);
+    applyCity("");
     pulseCityFeedback();
     return;
   }
@@ -1751,11 +1659,15 @@ function setupPremiumMotion() {
   };
 
   const revealGroups = [
+    { selector: ".hero-tv-copy", mode: "left" },
+    { selector: ".hero-tv-offer", mode: "right", delay: 80 },
     { selector: ".proof-copy", mode: "left" },
     { selector: ".proof-card", mode: "fade", stagger: 70 },
     { selector: ".reviews-heading", mode: "rise" },
     { selector: ".reviews-carousel", mode: "rise", delay: 90 },
     { selector: ".trust-strip-grid > div", mode: "fade", stagger: 55 },
+    { selector: ".pulsewatch-visual", mode: "left" },
+    { selector: ".pulsewatch-copy", mode: "right", delay: 80 },
     { selector: ".plan-card", mode: "fade", stagger: 60 },
     { selector: ".plan-builder-heading", mode: "rise" },
     { selector: ".plan-builder-option", mode: "fade", stagger: 70 },
@@ -1839,19 +1751,12 @@ function setupPlanBuilder() {
     selectMobilePlan(featuredPlan.name, featuredPlan.price);
   });
 
-  const pulsewatchFeatured = document.getElementById("pulsewatchFeatured");
-
-  pulsewatchFeatured?.addEventListener("click", () => {
-    togglePulsewatchPlan();
-  });
-
   const internetOnlyButton = document.getElementById("planBuilderInternetOnly");
   if (internetOnlyButton) {
     internetOnlyButton.addEventListener("click", () => {
       state.selectedAddons = {
         fixed: false,
-        mobile: false,
-        pulsewatch: false
+        mobile: false
       };
       state.selectedMobilePlan = "";
       state.selectedMobilePrice = "";
@@ -1946,13 +1851,12 @@ function init() {
   applyPhoneMask(phoneInput);
   applyCity("");
   setupPlanBuilder();
-  setupTour();
 
-  citySelectorTop.addEventListener("change", () => {
+  citySelectorTop?.addEventListener("change", () => {
     syncCitySelectors(citySelectorTop.value);
   });
 
-  citySelectorForm.addEventListener("change", () => {
+  citySelectorForm?.addEventListener("change", () => {
     syncCitySelectors(citySelectorForm.value);
   });
 
@@ -1968,10 +1872,10 @@ function init() {
     }, 0);
   };
 
-  citySelectorGate.addEventListener("input", handleCityGateSelection);
-  citySelectorGate.addEventListener("change", handleCityGateSelection);
+  citySelectorGate?.addEventListener("input", handleCityGateSelection);
+  citySelectorGate?.addEventListener("change", handleCityGateSelection);
 
-  changeCityButton.addEventListener("click", () => {
+  changeCityButton?.addEventListener("click", () => {
     openCityGate("");
   });
   cityGateBackdrop?.addEventListener("click", () => {
@@ -2010,7 +1914,6 @@ function init() {
 
   leadForm.addEventListener("submit", submitLead);
   setupPremiumMotion();
-  openCityGate();
   scheduleConsultWidget();
   hideConectAiNativeListing();
   window.setTimeout(hideConectAiNativeListing, 600);
