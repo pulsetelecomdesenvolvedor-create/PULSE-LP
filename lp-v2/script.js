@@ -145,7 +145,7 @@ const plans = [
     unit: "Mega",
     price: "89,90",
     name: "Pulse Essencial",
-    artwork: "plan-700",
+    use: "Para navegar, estudar e assistir com a família.",
     mesh: false,
   },
   {
@@ -153,7 +153,7 @@ const plans = [
     unit: "Mega",
     price: "99,90",
     name: "Pulse Conecta",
-    artwork: "plan-800",
+    use: "Mais folga para home office e várias telas.",
     mesh: false,
     featured: true,
   },
@@ -162,10 +162,10 @@ const plans = [
     unit: "Giga",
     price: "129,90",
     name: "Pulse Performance",
-    artwork: "plan-giga",
+    use: "Casa cheia, jogos e downloads pesados.",
     mesh: false,
   },
-  { speed: "1", unit: "Giga", price: "139,90", name: "Pulse Mesh", artwork: "plan-mesh", mesh: true },
+  { speed: "1", unit: "Giga", price: "139,90", name: "Pulse Mesh", use: "Sinal forte em todos os cômodos.", mesh: true },
 ];
 let selectedCity = "";
 try {
@@ -274,10 +274,12 @@ function renderPlans(animate=false) {
   );
   grid.innerHTML = filtered
     .map(
-      (plan) => `<article class="plan-card${plan.featured ? " featured" : ""}">
-    <div class="plan-cover plan-cover-art"><img src="./lp-v2/assets/${plan.artwork}.webp" srcset="./lp-v2/assets/${plan.artwork}-small.webp 480w, ./lp-v2/assets/${plan.artwork}.webp 960w" sizes="(max-width:480px) 92vw, (max-width:1000px) 46vw, 260px" width="960" height="600" loading="lazy" decoding="async" alt="${plan.speed} ${plan.unit}${plan.mesh ? ' + 1 Mesh' : ''} + Streaming PulseTV"><h3 class="visually-hidden">${plan.speed} ${plan.unit}${plan.mesh ? ' + 1 Mesh' : ''} com PulseTV incluso</h3></div>
-    <div class="plan-body"><ul class="plan-features"><li>Instalação grátis</li><li>100% fibra óptica</li><li>Suporte especializado</li></ul><p class="plan-caption">VANTAGENS INCLUSAS</p><div class="plan-perks"><span>Wi-Fi 6</span><span>Via Livros</span>${plan.mesh ? "<span>1 Pulse Mesh</span>" : ""}</div><div class="plan-tv"><div class="plan-tv-title"><img class="plan-tv-logo" src="./lp-v2/assets/pulsetv-logo.webp" width="900" height="259" loading="lazy" decoding="async" alt="PulseTV"><small>GRÁTIS</small></div><p>+160 canais · Filmes e séries<br>Até 5 telas simultâneas</p></div></div>
-    <div class="plan-bottom"><div class="plan-price"><span>R$</span><strong>${plan.price}</strong><small>/mês</small></div><a class="btn btn-green" data-whatsapp href="#contato">Quero esse plano <span aria-hidden="true">↗</span></a><small>Consulte cobertura e condições.</small></div>
+      (plan) => `<article class="plan-card pv3${plan.featured ? " featured" : ""}">
+    <div class="pv3-head">${plan.featured ? `<span class="pv3-badge">Recomendado</span>` : ""}<h3 class="pv3-speed"><strong>${plan.speed}</strong><span>${plan.unit}${plan.mesh ? `<em>+ 1 Mesh</em>` : ""}</span></h3><p>${plan.use}</p></div>
+    <div class="pv3-price"><span>R$</span><strong>${plan.price.split(",")[0]}</strong><b>,${plan.price.split(",")[1]}<small>/mês</small></b></div>
+    <ul class="pv3-list"><li>100% fibra óptica</li><li>Instalação grátis</li><li>Tecnologia Wi-Fi 6</li>${plan.mesh ? "<li><span><strong>1 Pulse Mesh</strong> incluso</span></li>" : ""}<li>Via Livros</li><li>Suporte especializado</li></ul>
+    <div class="pv3-tv"><img src="./lp-v2/assets/pulsetv-logo.webp" width="900" height="259" loading="lazy" decoding="async" alt="PulseTV"><span><b>Incluso</b>160+ canais · 5 telas</span></div>
+    <div class="pv3-cta"><a class="btn btn-green" data-whatsapp href="#contato">Quero esse plano <span aria-hidden="true">↗</span></a><small>Consulte cobertura e condições.</small></div>
   </article>`,
     )
     .join("");
@@ -365,5 +367,5 @@ track.addEventListener(
 setSlide(0);
 
 // Fade-in de entrada, uma única vez e sem bibliotecas de animação.
-revealElements([...document.querySelectorAll('.section-heading,.contact-copy,.contact-form,.about-top,.entertainment-top,.entertainment-posters,.tv-benefits,.store-layout,.faq-grid')]);
+revealElements([...document.querySelectorAll('.section-heading,.contact-copy,.contact-form,.about-top,.entertainment-top,.tv-showcase,.tv-benefits,.store-layout,.faq-grid')]);
 for(const selector of ['.about-features article','.extras-grid article','.review-grid figure'])revealElements([...document.querySelectorAll(selector)],45);
